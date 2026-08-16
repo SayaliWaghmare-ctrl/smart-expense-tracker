@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.service.UserService;
 
@@ -19,7 +18,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("new")
+	@GetMapping("/new")
 	public String showCreateUser(Model model)
 	{
 		model.addAttribute("user", new User());

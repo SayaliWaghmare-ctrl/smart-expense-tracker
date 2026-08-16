@@ -16,6 +16,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name = "user_name", nullable = false)
+	private String username;
+	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	
@@ -93,7 +96,14 @@ public class User {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	
 	
 }
