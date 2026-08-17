@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User createUser(User user) {
+		
+		user.setCreatedAt(LocalDateTime.now());
 		
 		return userRepository.save(user);
 	}
