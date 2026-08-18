@@ -1,24 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create User | Smart Expense Tracker</title>
+
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <!-- Header -->
+        <header class="page-header">
+            <div>
+                <h1>Smart Expense Tracker</h1>
+                <p>Create your account</p>
+            </div>
+        </header>
 
 
-<form th:action="@{/users/save}" th:object="${user}" method="post">
+        <!-- Main Content -->
+        <main class="main-content">
 
-    <input type="text" th:field="*{username}">
-    
-    <input type="email" th:field="*{email}">
-    
-    <input type="password" th:field="*{password}">
-    
-    <input type="text" th:field="*{firstName}">
-    
-    <input type="text" th:field="*{lastName}">
-    
-  
+            <div class="form-card">
 
-    <button type="submit">Save User</button>
+                <div class="form-header">
+                    <div class="icon-circle">
+                        👤
+                    </div>
 
-</form>
+                    <h2>Create User</h2>
 
+                    <p>
+                        Enter your details to create a new account.
+                    </p>
+                </div>
 
 
+                <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+
+                    <span>✓</span>
+
+                    <span th:text="${successMessage}">
+                        User created successfully!
+                    </span>
+
+                </div>
 
 
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+
+                    <span>!</span>
+
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+
+                </div>
+
+
+                <!-- User Form -->
+                <form th:action="@{/users/save}"
+                      th:object="${user}"
+                      method="post"
+                      id="userForm"
+                      novalidate>
+
+
+                    <!-- Username -->
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input type="text"
+                               id="username"
+                               th:field="*{username}"
+                               placeholder="Enter username"
+                               autocomplete="username">
+
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('username')}"
+                               th:errors="*{username}">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input type="email"
+                               id="email"
+                               th:field="*{email}"
+                               placeholder="example@email.com"
+                               autocomplete="email">
+
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('email')}"
+                               th:errors="*{email}">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="password-container">
+
+                            <input type="password"
+                                   id="password"
+                                   th:field="*{password}"
+                                   placeholder="Enter password"
+                                   autocomplete="new-password">
+
+                            <button type="button"
+                                    id="togglePassword"
+                                    class="password-toggle">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <small id="passwordMessage"
+                               class="password-message">
+                        </small>
+
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            class="submit-button"
+                            id="submitButton">
+
+                        <span id="buttonText">
+                            Create User
+                        </span>
+
+                        <span id="loadingText"
+                              class="loading-text">
+                            Creating...
+                        </span>
+
+                    </button>
+
+
+                    <!-- Reset Button -->
+                    <button type="reset"
+                            class="reset-button"
+                            id="resetButton">
+
+                        Clear Form
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="page-footer">
+
+            <p>
+                © 2026 Smart Expense Tracker
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script th:src="@{/js/user.js}"></script>
+
+</body>
+
+</html>

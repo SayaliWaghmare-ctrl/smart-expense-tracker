@@ -35,7 +35,7 @@ public class User {
 	private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at")
-	private String updatedAt;
+	private LocalDateTime updatedAt;
 	
 	public User() {
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.service.UserService;
 
@@ -22,14 +24,20 @@ public class UserController {
 	public String showCreateUser(Model model)
 	{
 		model.addAttribute("user", new User());
+		
 		return "user/create-user";
 		
 	}
 	
 	@PostMapping("/save")
-	public String saveUser(@ModelAttribute("user") User user)
+	public String saveUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
 	{
 		userService.createUser(user);
+		
+		redirectAttributes.addFlashAttribute(
+	            "successMessage",
+	            "User created successfully!"
+	    );
 		return "redirect:/users";
 		
 	}
