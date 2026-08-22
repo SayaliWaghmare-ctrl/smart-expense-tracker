@@ -1,0 +1,139 @@
+@charset "ISO-8859-1";
+
+
+body {
+    font-family: Arial, sans-serif;
+   /*  background-color: #f4f6f8; */
+    margin: 0;
+    padding: 40px;
+    
+    background:
+        radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.25), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.25), transparent 30%),
+        linear-gradient(135deg, #eef2ff, #f8fafc, #e0f2fe);
+
+    color: #1e293b;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Table */
+table {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+thead {
+    background-color: #343a40;
+    color: white;
+}
+
+th {
+    padding: 14px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Table Data */
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    color: #444;
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Links */
+td a {
+    text-decoration: none;
+    padding: 7px 12px;
+    margin: 0 4px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Edit button */
+td a:first-child {
+    background-color: #007bff;
+    color: white;
+}
+
+td a:first-child:hover {
+    background-color: #0056b3;
+}
+
+/* Delete button */
+td a:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+td a:last-child:hover {
+    background-color: #a71d2a;
+}
+
+
+/* Back to Login Button */
+.back-btn {
+    display: block;
+    margin: 30px auto 0;
+
+    padding: 10px 22px;
+
+    background-color: #475569;
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #334155;
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Responsive table */
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    td a {
+        display: block;
+        margin: 4px 0;
+    }
+}

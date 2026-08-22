@@ -1,11 +1,54 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User List | Smart Expense Tracker</title>
+    
+    <link rel="stylesheet" th:href="@{/css/user-list.css}">
 </head>
 <body>
 <h1>Welcome to User List</h1>
+<table border="1">
+     <thead>
+       <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+               <!--  <th>Phone</th>
+                <th>Actions</th> -->
+       </tr>
+     </thead>
+     
+     
+    <tbody>
+        
+    <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.username}"></td>
+    <td th:text="${user.firstName}"></td>
+     <td th:text="${user.lastName}"></td>
+    <td th:text="${user.email}"></td>
+  <!--   <td th:text="${user.phone}"></td> -->
+
+    <td>
+        <a th:href="@{/edit-user/{id}(id=${user.id})}">
+            Edit
+        </a>
+
+        <a th:href="@{/delete-user/{id}(id=${user.id})}">
+            Delete
+        </a>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<button class="back-btn">Back to Login</button>
+
 </body>
 </html>
