@@ -34,11 +34,8 @@ public class UserController {
 	{
 		userService.createUser(user);
 		
-		redirectAttributes.addFlashAttribute(
-	            "successMessage",
-	            "User created successfully!"
-	    );
-		return "redirect:/users";
+		redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
+		return "redirect:/users/userlist";
 		
 	}
 	
@@ -61,10 +58,27 @@ public class UserController {
 	    return "edit-user";
 	}
 	
+	@PostMapping("/delete/{id}")
+	public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+	    userService.deleteUser(id);
+
+	    redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
+	    
+	    return "redirect:/users/userlist";
+	}
 	
+	@GetMapping("/login")
+	public String showLoginPage() {
+	    return "user/login";
+	}
 	
-	
-	
-	
+	@PostMapping("/getLogin")
+	public String getLogin(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
+	{
+		redirectAttributes.addFlashAttribute("successMessage", "User logged in successfully!");
+		return null;
+		
+	}
 	
 }
