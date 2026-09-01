@@ -79,6 +79,7 @@ td a:first-child:hover {
 td a:last-child {
     background-color: #dc3545;
     color: white;
+    text-align: center;
 }
 
 td a:last-child:hover {

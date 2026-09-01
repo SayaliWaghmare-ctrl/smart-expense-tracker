@@ -1,10 +1,179 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head> <meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Edit User | Smart Expense Tracker</title> 
+<link rel="stylesheet" th:href="@{/css/edit-user.css}"> 
+<!-- Icons --> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
+</head> 
+<body> 
 
-</body>
+    <div class="page-container"> 
+
+           <!-- Top Navigation --> 
+           
+           <div class="top-bar"> 
+              <div class="logo"> 
+                 <i class="fa-solid fa-wallet"></i> Smart Expense Tracker 
+              </div> <a th:href="@{/users/userlist}" class="back-link"> 
+                  <i class="fa-solid fa-arrow-left"></i> Back to Users </a> 
+           </div> <!-- Main Card --> <div class="edit-card"> 
+           
+           <!-- Profile Header --> 
+             <div class="profile-section"> 
+                <div class="avatar"> 
+                   <i class="fa-solid fa-user"></i> 
+                </div> 
+                
+                <div class="profile-info"> 
+                  <h1>Edit User</h1>
+                    <p> Update your personal information </p> 
+                      <span class="user-status"> 
+                        <i class="fa-solid fa-circle"></i> Active User 
+                      </span> 
+                </div> </div> 
+                
+              <div class="divider"></div>
+              
+           <!-- Form --> 
+           <form th:action="@{/users/update/{id}(id=${user.id})}" th:object="${user}" method="post"> 
+           
+           
+           <!-- Editable Information --> 
+           <div class="section-title"> 
+              <div> <i class="fa-solid fa-pen-to-square"></i> 
+                 <span>Personal Information</span> </div> 
+                   <span class="editable-badge"> <i class="fa-solid fa-pen"></i> Editable </span> 
+           </div> 
+           
+           <!-- Row 1 --> 
+         <div class="form-row"> 
+                        
+          <!-- First Name --> 
+            <div class="form-group"> 
+               <label for="firstName"> First Name </label> 
+                  <div class="input-wrapper"> 
+                    <i class="fa-solid fa-user input-icon"></i> 
+                      <input type="text" id="firstName" th:field="*{firstName}" 
+                             placeholder="Enter first name" required> 
+                  </div> 
+            </div> 
+            
+          <!-- Last Name --> 
+          <div class="form-group"> 
+             <label for="lastName"> Last Name </label> 
+                <div class="input-wrapper"> 
+                   <i class="fa-solid fa-user input-icon"></i> 
+                      <input type="text" id="lastName" th:field="*{lastName}" 
+                             placeholder="Enter last name" required> 
+                </div> </div> 
+        </div> 
+        
+        <!-- Email -->        
+        <div class="form-group"> 
+          <label for="email"> Email Address </label> 
+            <div class="input-wrapper"> 
+              <i class="fa-solid fa-envelope input-icon"></i> 
+                <input type="email" id="email" th:field="*{email}" 
+                       placeholder="Enter email address" required> 
+           </div>
+        </div> 
+        
+        <!-- Account Information --> 
+        <div class="section-title account-title"> 
+         <div> 
+           <i class="fa-solid fa-shield-halved"></i> 
+              <span>Account Information</span> 
+         </div> 
+           <span class="readonly-badge"> 
+              <i class="fa-solid fa-lock"></i> Read Only </span> 
+        </div> 
+        
+        <!-- Account Row --> 
+      <div class="form-row"> 
+        
+        <!-- User ID --> 
+        <div class="form-group"> 
+        <label>User ID</label> 
+          <div class="input-wrapper readonly"> 
+            <i class="fa-solid fa-id-card input-icon"></i> 
+               <input type="text" th:value="${user.id}" readonly> 
+                  <i class="fa-solid fa-lock lock-icon"></i> 
+          </div>
+        </div> 
+        
+        
+        <!-- Username --> 
+        <div class="form-group"> 
+        <label>Username</label> 
+           <div class="input-wrapper readonly"> 
+              <i class="fa-solid fa-at input-icon"></i> 
+                 <input type="text" th:value="${user.username}" readonly> 
+                   <i class="fa-solid fa-lock lock-icon"></i> 
+           </div> </div> 
+      </div> 
+      
+      
+      <!-- Password --> 
+      <div class="form-group"> 
+          <label>Password</label> 
+             <div class="input-wrapper readonly"> 
+               <i class="fa-solid fa-key input-icon"></i> 
+                  <input type="password" value="********" readonly> 
+                     <i class="fa-solid fa-lock lock-icon"></i> 
+            </div> 
+            <small> Password cannot be changed from this page. </small> 
+     </div> 
+     
+     <!-- Dates --> 
+     <div class="form-row"> 
+        <div class="form-group"> 
+          <label>Created At</label> 
+             <div class="input-wrapper readonly"> 
+                <i class="fa-solid fa-calendar-plus input-icon"></i> 
+                   <input type="text" th:value="${user.createdAt}" readonly> 
+             </div> 
+       </div> <div class="form-group"> 
+                <label>Last Updated</label> 
+                  <div class="input-wrapper readonly"> 
+                     <i class="fa-solid fa-calendar-check input-icon"></i> 
+                        <input type="text" th:value="${user.updatedAt}" readonly> 
+                  </div> 
+             </div> 
+    </div> 
+    
+    
+    <!-- Bottom Actions --> 
+    <div class="action-section"> 
+      <a th:href="@{/users/userlist}" class="cancel-btn"> 
+         <i class="fa-solid fa-xmark"></i> Cancel 
+      </a> 
+      <button type="submit" class="update-btn"> 
+        <i class="fa-solid fa-check"></i> Update User 
+      </button> 
+   </div> 
+ </form> 
+</div> 
+
+
+    <!-- Footer --> 
+     <div class="footer"> 
+       <i class="fa-solid fa-lock"></i> Your account information is secure 
+     </div> 
+   </div> 
+   
+   
+   <!-- Small interaction -->
+      <script> 
+         const inputs = document.querySelectorAll( '.input-wrapper input:not([readonly])' ); 
+         inputs.forEach(input => 
+             { input.addEventListener('focus', function () { 
+            	 this.parentElement.classList.add('active'); 
+              }); input.addEventListener('blur', function () { 
+            	  this.parentElement.classList.remove('active'); 
+            	  }); 
+              }); 
+     </script> 
+   </body> 
 </html>

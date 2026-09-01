@@ -64,9 +64,16 @@
     <td>
       
                      <!-- Edit -->
-        <a th:href="@{/edit-user/{id}(id=${user.id})}">
-            Edit
-        </a>
+        <form th:action="@{/users/edit/{id}(id=${user.id})}"
+               method="get"
+               style="display:inline;">
+               
+          <button type="submit">
+          
+              Edit
+          </button>     
+            
+        </form>
 
                    <!-- Delete -->
          <form th:action="@{/users/delete/{id}(id=${user.id})}"

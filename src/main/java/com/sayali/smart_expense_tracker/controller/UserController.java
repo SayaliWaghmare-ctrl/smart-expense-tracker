@@ -48,14 +48,14 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/edit-user/{id}")
+	@GetMapping("/edit/{id}")
 	public String editUser(@PathVariable Long id, Model model) {
 
 	    User user = userService.getUserById(id);
 
 	    model.addAttribute("user", user);
 
-	    return "edit-user";
+	    return "user/edit-user";
 	}
 	
 	@PostMapping("/delete/{id}")
