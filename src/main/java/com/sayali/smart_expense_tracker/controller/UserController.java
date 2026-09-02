@@ -33,7 +33,6 @@ public class UserController {
 	public String saveUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
 	{
 		userService.createUser(user);
-		
 		redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
 		return "redirect:/users/userlist";
 		
@@ -52,10 +51,17 @@ public class UserController {
 	public String editUser(@PathVariable Long id, Model model) {
 
 	    User user = userService.getUserById(id);
-
 	    model.addAttribute("user", user);
-
 	    return "user/edit-user";
+	}
+	
+	@PostMapping("/editUser")
+	public String getEditUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
+	{
+		userService.updateUser(user.getId(), user);
+		redirectAttributes.addFlashAttribute("successMessage", "User updated successfully !");
+		return "redirect:/users/userlist";
+		
 	}
 	
 	@PostMapping("/delete/{id}")
