@@ -5,6 +5,34 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+                <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+
+                    <span>✓</span>
+
+                    <span th:text="${successMessage}">
+                        User created successfully!
+                    </span>
+
+                </div>
+
+
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+
+                    <span>!</span>
+
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+
+                </div>
+               
 <h1>Loggin Successfully</h1>
+
+</form>
 </body>
 </html>

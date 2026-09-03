@@ -8,10 +8,35 @@
    <div class="login-container"> 
     <div class="login-card"> <h1>Smart Expense Tracker</h1> 
        <p class="subtitle">Login to manage your expenses</p> 
-        <form th:action="@{/login}" method="post"> 
+       
+          <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+
+                    <span>✓</span>
+
+                    <span th:text="${successMessage}">
+                        User created successfully!
+                    </span>
+
+                </div>
+
+
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+ 
+                     <span>!</span>
+                </div>
+                
+        <form th:action="@{/getLogin}" method="post"> 
          <div class="form-group"> 
-            <label for="email">User</label> 
-               <input type="email" id="email" name="email" placeholder="Enter your email" required> 
+            <label for="username">User</label> 
+               <input type="text" id="username" name="username" placeholder="Enter username" required> 
          </div> 
          
          <div class="form-group"> 

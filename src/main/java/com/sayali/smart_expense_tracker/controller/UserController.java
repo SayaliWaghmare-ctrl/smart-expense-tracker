@@ -74,17 +74,6 @@ public class UserController {
 	    return "redirect:/users/userlist";
 	}
 	
-	@GetMapping("/login")
-	public String showLoginPage() {
-	    return "user/login";
-	}
 	
-	@PostMapping("/getLogin")
-	public String getLogin(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
-	{
-		redirectAttributes.addFlashAttribute("successMessage", "User logged in successfully!");
-		return null;
-		
-	}
 	
 }

@@ -146,3 +146,35 @@ body {
 	font-size: 23px; 
 	} 
   }
+  
+ 
+  	/* ==================== Error and Success Message ========================== */  
+  
+
+.alert.error-alert {
+    text-align: center;
+    color: #dc3545;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+  
+.alert.success-alert {
+	
+	text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
