@@ -72,8 +72,13 @@ public class UserController {
 	    redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
 	    
 	    return "redirect:/users/userlist";
+	    
+	    
 	}
 	
-	
-	
+	@GetMapping("/resetPassword")
+	public String resetPassword(@ModelAttribute("user") User user)
+    {
+    	return "user/reset-password";
+    }
 }

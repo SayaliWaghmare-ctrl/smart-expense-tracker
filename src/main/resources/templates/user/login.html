@@ -45,9 +45,16 @@
          </div> 
          
          <button type="submit" class="login-btn"> Login </button> 
-        </form> <p class="register-text"> Don't have an account? 
+        </form> 
+        
+        <p class="register-text"> Don't have an account? 
            <a th:href="@{/users/new}">Create User</a> 
-                </p> </div> 
+        </p> 
+        
+        <div class="register-text"> 
+           <a th:href="@{/users/resetPassword}">forgot password</a> 
+       </div>
+     </div> 
      </div> 
      
 </body> 
