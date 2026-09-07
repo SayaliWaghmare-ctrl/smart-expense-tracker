@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.service.UserService;
@@ -72,13 +73,31 @@ public class UserController {
 	    redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
 	    
 	    return "redirect:/users/userlist";
-	    
-	    
+	    	    
 	}
 	
 	@GetMapping("/resetPassword")
-	public String resetPassword(@ModelAttribute("user") User user)
+	public String resetPassword()
     {
     	return "user/reset-password";
     }
+	
+	@PostMapping("/forgot-password")
+	public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes)
+	{
+		 try {
+
+		        userService.forgotPassword(email);
+
+		        redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email.");
+
+		    } catch (RuntimeException e) {
+
+		        redirectAttributes.addFlashAttribute("error","Email is not registered.");
+		    }
+
+		    return "redirect:/users/forgot-password";
+			
+	}
+	
 }

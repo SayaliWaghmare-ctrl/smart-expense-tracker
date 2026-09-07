@@ -2,6 +2,8 @@ package com.sayali.smart_expense_tracker.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@Override
 	public User createUser(User user) {
@@ -60,4 +65,27 @@ public class UserServiceImpl implements UserService{
 		 userRepository.deleteById(id);
 	}
 	
+	@Override
+	public void forgotPassword(String email) {
+
+	    Optional<User> userOptional = userRepository.findByEmail(email);
+
+	    if (userOptional.isEmpty()) {
+	        throw new RuntimeException("Email not registered");
+	    }
+
+	    User user = userOptional.get();
+
+	    String token = UUID.randomUUID().toString();
+
+	    user.setResetToken(token);
+	    user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(15));
+
+	    userRepository.save(user);
+
+	    String resetLink = "http://localhost:8080/users/reset-password?token=" + token;
+
+	    emailService.sendForgotPasswordEmail(user.getEmail(), resetLink);
+	}
+
 }
