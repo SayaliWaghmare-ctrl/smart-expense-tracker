@@ -82,12 +82,12 @@ public class UserController {
     	return "user/reset-password";
     }
 	
-	@PostMapping("/forgot-password")
-	public String forgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes)
+	@GetMapping("/forgot-password")
+	public String forgotPassword(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
 	{
 		 try {
 
-		        userService.forgotPassword(email);
+		        userService.forgotPassword(user.getEmail());
 
 		        redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email.");
 
