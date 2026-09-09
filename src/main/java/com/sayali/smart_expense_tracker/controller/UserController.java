@@ -77,12 +77,37 @@ public class UserController {
 	}
 	
 	@GetMapping("/resetPassword")
-	public String resetPassword()
+	public String resetPasswordForm()
     {
     	return "user/reset-password";
     }
 	
 	@GetMapping("/forgot-password")
+	public String showForgotPasswordPage(Model model) {
+
+	    model.addAttribute("user", new User());
+
+	    return "user/reset-password";
+	}
+	
+	@GetMapping("/forgot-password-form")
+	public String forgotPasswordForm( @RequestParam("token") String token, Model model)
+	{
+
+		if(!userService.validateResetToken(token))
+		{
+			model.addAttribute("errorMessage", "Invalid or expired password reset link");
+			
+			return "user/forgot-password";
+		}
+		
+	   model.addAttribute("token", token);
+
+	    return "user/forgot-password";
+		
+	}
+	
+	@PostMapping("/forgot-password")
 	public String forgotPassword(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
 	{
 		 try {
@@ -96,8 +121,30 @@ public class UserController {
 		        redirectAttributes.addFlashAttribute("error","Email is not registered.");
 		    }
 
-		    return "redirect:/users/forgot-password";
-			
+		    return "redirect:/users/forgot-password";			
+	}
+	
+	@PostMapping("/reset-password")
+	public String resetPassword(
+	        @RequestParam("token") String token,
+	        @RequestParam("newPassword") String newPassword,
+	        @RequestParam("confirmPassword") String confirmPassword,
+	        RedirectAttributes redirectAttributes) {
+
+	    try {
+
+	        userService.resetPassword(token, newPassword, confirmPassword);
+
+	        redirectAttributes.addFlashAttribute("successMessage", "Password reset successfully. Please login.");
+
+	        return "redirect:/login";
+
+	    } catch (RuntimeException e) {
+
+	        redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+
+	        return "redirect:/users/forgot-password-form?token=" + token;
+	    }
 	}
 	
 }
