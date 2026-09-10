@@ -38,4 +38,12 @@ public class LoginController {
 		return "user/login";
 		
 	}
+	
+	@PostMapping("/logout")
+	public String logout(RedirectAttributes redirectAttributes) {
+
+	    redirectAttributes.addFlashAttribute("successMessage", "You have been logged out successfully!");
+
+	    return "redirect:/login";
+	}
 }

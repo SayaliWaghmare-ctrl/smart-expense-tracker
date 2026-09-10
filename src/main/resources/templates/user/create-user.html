@@ -188,6 +188,41 @@
                         </small>
 
                     </div>
+                    
+                     
+                     <!-- Confirm Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Confirm Password
+                        </label>
+
+                        <div class="password-container">
+
+                            <input type="password"
+                                   id="confirmPassword"
+                                   name="confirmPassword"
+                                   placeholder="Enter password"
+                                   autocomplete="confirmPassword">
+
+                            <button type="button"
+                                    id="togglePassword"
+                                    class="password-toggle">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <small id="passwordMessage"
+                               class="password-message">
+                        </small>
+
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('confirmPassword')}"
+                               th:errors="*{confirmPassword}">
+                        </small>
+
+                    </div>
 
 
                     <!-- Submit Button -->
@@ -207,6 +242,7 @@
 
 
                    <!--   Login Button -->
+                  <a href="/login" class="logout-link">
                     <button type="button"
                             class="submit-button"
                             id="submitButton">
@@ -215,7 +251,7 @@
                             Login User
                         </span>
                     </button>
-                    
+                 </a>   
                     
                     <!-- Reset Button -->
                     <button type="reset"
@@ -227,6 +263,28 @@
                     </button>
 
                 </form>
+
+
+         <script>
+               function validatePassword() {
+
+                  let password = document.getElementById("password").value;
+                  let confirmPassword = document.getElementById("confirmPassword").value;
+                  let error = document.getElementById("passwordError");
+
+                  if (password !== confirmPassword) {
+                     error.textContent = "Passwords do not match";
+                     error.style.color = "red";
+                     
+                     return false;
+                    }
+
+                      error.textContent = "";
+                      return true;
+    
+                    }
+        </script> 
+
 
             </div>
 

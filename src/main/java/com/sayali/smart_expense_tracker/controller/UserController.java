@@ -31,7 +31,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/save")
-	public String saveUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
+	public String saveUser(@ModelAttribute("user") User user,RedirectAttributes redirectAttributes)
 	{
 		userService.createUser(user);
 		redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
@@ -90,6 +90,23 @@ public class UserController {
 	    return "user/reset-password";
 	}
 	
+	@PostMapping("/forgot-password")
+	public String forgotPassword(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
+	{
+		 try {
+
+		        userService.forgotPassword(user.getEmail());
+
+		        redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email.");
+
+		    } catch (RuntimeException e) {
+
+		        redirectAttributes.addFlashAttribute("errorMessage","Email is not registered.");
+		    }
+
+		    return "redirect:/users/forgot-password";			
+	}
+	
 	@GetMapping("/forgot-password-form")
 	public String forgotPasswordForm( @RequestParam("token") String token, Model model)
 	{
@@ -107,29 +124,10 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/forgot-password")
-	public String forgotPassword(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes)
-	{
-		 try {
-
-		        userService.forgotPassword(user.getEmail());
-
-		        redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email.");
-
-		    } catch (RuntimeException e) {
-
-		        redirectAttributes.addFlashAttribute("error","Email is not registered.");
-		    }
-
-		    return "redirect:/users/forgot-password";			
-	}
-	
-	@PostMapping("/reset-password")
-	public String resetPassword(
-	        @RequestParam("token") String token,
-	        @RequestParam("newPassword") String newPassword,
-	        @RequestParam("confirmPassword") String confirmPassword,
-	        RedirectAttributes redirectAttributes) {
+		
+	@PostMapping("/reset-password-form")
+	public String resetPassword(@RequestParam("token") String token,@RequestParam("newPassword") String newPassword,
+	        @RequestParam("confirmPassword") String confirmPassword,RedirectAttributes redirectAttributes) {
 
 	    try {
 

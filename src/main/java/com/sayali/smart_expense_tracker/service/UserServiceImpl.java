@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.sayali.smart_expense_tracker.entity.PasswordResetToken;
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.repository.PasswordResetTokenRepository;
@@ -174,6 +176,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	@Transactional
 	public void resetPassword(String token, String newPassword, String confirmPassword) {
 		
 		// Password validation
