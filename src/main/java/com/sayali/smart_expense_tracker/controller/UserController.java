@@ -33,8 +33,16 @@ public class UserController {
 	@PostMapping("/save")
 	public String saveUser(@ModelAttribute("user") User user,RedirectAttributes redirectAttributes)
 	{
+		try {
 		userService.createUser(user);
 		redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
+		
+		}
+		catch(Exception e)
+		{
+			e.getMessage();
+			redirectAttributes.addFlashAttribute("errorMessage", "Error occured while creating user");
+		}
 		return "redirect:/users/userlist";
 		
 	}

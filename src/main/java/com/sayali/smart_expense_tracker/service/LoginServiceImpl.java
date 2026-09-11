@@ -2,6 +2,7 @@ package com.sayali.smart_expense_tracker.service;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sayali.smart_expense_tracker.entity.User;
@@ -11,11 +12,14 @@ import com.sayali.smart_expense_tracker.repository.UserRepository;
 public class LoginServiceImpl implements LoginService{
 
 	 private final UserRepository userRepository;
-	 
-	 public LoginServiceImpl(UserRepository userRepository) {
+	 private final PasswordEncoder passwordEncoder;
+	 	 
+	 public LoginServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
-
+	 
+	
 	@Override
 	public boolean validateLogin(String username, String password) {
 
@@ -25,7 +29,8 @@ public class LoginServiceImpl implements LoginService{
 		if(userOptional.isPresent())
 		{
 			User user = userOptional.get();
-			return user.getPassword().equals(password);
+			//return user.getPassword().equals(password);
+			return passwordEncoder.matches(password, user.getPassword());
 		}
 		return false;
 	}

@@ -68,7 +68,8 @@
 
 
                 <!-- User Form -->
-                <form th:action="@{/users/save}" th:object="${user}" method="post" id="userForm" novalidate>
+                <form th:action="@{/users/save}" th:object="${user}" method="post" id="userForm" 
+                  onsubmit="return validatePassword()">
 
 
                     <!-- Username -->
@@ -193,7 +194,7 @@
                      <!-- Confirm Password -->
                     <div class="form-group">
 
-                        <label for="password">
+                        <label for="confirmPassword">
                             Confirm Password
                         </label>
 
@@ -203,25 +204,19 @@
                                    id="confirmPassword"
                                    name="confirmPassword"
                                    placeholder="Enter password"
-                                   autocomplete="confirmPassword">
+                                   autocomplete="new-password">
 
                             <button type="button"
-                                    id="togglePassword"
+                                    id="toggleConfirmPassword"
                                     class="password-toggle">
                                 Show
                             </button>
 
                         </div>
 
-                        <small id="passwordMessage"
+                        <small id="confirmPasswordMessage"
                                class="password-message">
                         </small>
-
-                        <small class="field-error"
-                               th:if="${#fields.hasErrors('confirmPassword')}"
-                               th:errors="*{confirmPassword}">
-                        </small>
-
                     </div>
 
 
@@ -270,7 +265,7 @@
 
                   let password = document.getElementById("password").value;
                   let confirmPassword = document.getElementById("confirmPassword").value;
-                  let error = document.getElementById("passwordError");
+                  let error = document.getElementById("confirmPasswordMessage");
 
                   if (password !== confirmPassword) {
                      error.textContent = "Passwords do not match";
@@ -285,10 +280,26 @@
                     }
         </script> 
 
+        <script>
+        const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+        const confirmPassword = document.getElementById("confirmPassword");
 
-            </div>
+        toggleConfirmPassword.addEventListener("click", function () {
 
-        </main>
+            if (confirmPassword.type === "password") {
+                confirmPassword.type = "text";
+                toggleConfirmPassword.textContent = "Hide";
+            } else {
+                confirmPassword.type = "password";
+                toggleConfirmPassword.textContent = "Show";
+            }
+
+        });
+        </script>
+
+     </div>
+
+   </main>
 
 
         <!-- Footer -->

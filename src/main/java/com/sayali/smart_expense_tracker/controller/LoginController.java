@@ -30,11 +30,9 @@ public class LoginController {
 		{
 			redirectAttributes.addFlashAttribute("successMessage", "User logged in successfully!");
 			return "user/home";
-		}
-		
+		}		
 		model.addAttribute("errorMessage","Invalid user and password");
-		
-		
+				
 		return "user/login";
 		
 	}

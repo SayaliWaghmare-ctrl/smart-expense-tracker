@@ -26,14 +26,19 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private PasswordResetTokenRepository tokenRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	//Constructor
+	private final PasswordEncoder passwordEncoder;
+
+	public UserServiceImpl(PasswordEncoder passwordEncoder) {
+	    this.passwordEncoder = passwordEncoder;
+	}
+	
 	
 	@Override
 	public User createUser(User user) {
 		
 		user.setCreatedAt(LocalDateTime.now());
-		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 
