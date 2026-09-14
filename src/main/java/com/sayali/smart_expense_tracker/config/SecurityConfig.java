@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.sayali.smart_expense_tracker.security.CustomUserDetailsService;
 import com.sayali.smart_expense_tracker.security.JwtAuthenticationFilter;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -66,6 +64,7 @@ public class SecurityConfig {
 
 	            .requestMatchers(
 	                "/login",
+	                "/getLogin",	
 	                "/register",
 	                "/users/new",
 	                "/users/save",
