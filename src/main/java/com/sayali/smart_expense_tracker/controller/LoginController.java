@@ -16,6 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.security.JwtService;
 import com.sayali.smart_expense_tracker.service.LoginService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 
 @Controller
 public class LoginController {
@@ -37,17 +40,32 @@ public class LoginController {
 	    return "user/login";
 	}
 	
+	@GetMapping("/home")
+	public String home() {
+	    return "user/home";
+	}
+	
 	@PostMapping("/getLogin")
-	public String getLogin(@RequestParam("username") String username,@RequestParam("password") String password,Model model, RedirectAttributes redirectAttributes)
+	public String getLogin(@RequestParam("username") String username,@RequestParam("password") String password,Model model, 
+			RedirectAttributes redirectAttributes, HttpServletResponse response)
 	{
 		try { 
 			
-			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken( username, password )); 
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken( username, password)); 
 			
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal(); 
 			String token = jwtService.generateToken(userDetails); 
 			System.out.println("JWT Token: " +token); 
-			redirectAttributes.addFlashAttribute( "successMessage", "User logged in successfully!" ); 
+			
+			 Cookie jwtCookie = new Cookie("jwt", token);
+		        jwtCookie.setHttpOnly(true);
+		        jwtCookie.setPath("/");
+		        jwtCookie.setMaxAge(60 * 60); // 1 hour
+
+		        response.addCookie(jwtCookie);
+
+		        redirectAttributes.addFlashAttribute("successMessage", "User logged in successfully!");
+		        
 			return "redirect:/home"; 
 			
 		}catch (Exception e) 

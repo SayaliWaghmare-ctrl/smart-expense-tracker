@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,21 +28,39 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain filterChain) throws ServletException, IOException 
+    {
 
+    	 String username = null;
+         String jwt = null;
+         
         String authHeader = request.getHeader("Authorization");
-
-        String username = null;
-        String jwt = null;
 
         // Check whether Authorization header exists
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
 
             jwt = authHeader.substring(7);
+        } else {
+
+            // If Authorization header is not present,
+            // check JWT cookie
+            Cookie[] cookies = request.getCookies();
+
+            if (cookies != null) {
+
+                for (Cookie cookie : cookies) {
+
+                    if ("jwt".equals(cookie.getName())) {
+
+                        jwt = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+        }
+           
+     // Extract username from JWT
+        if (jwt != null) {
 
             try {
                 username = jwtService.extractUsername(jwt);
@@ -49,6 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // Invalid JWT
             }
         }
+        
 
         // Authenticate user if username was extracted
         if (username != null &&

@@ -20,7 +20,7 @@ public interface UserService {
 	
 	boolean validateResetToken(String token);
 	
-	boolean resetPassword(String token, String newPassword);
+//	boolean resetPassword(String token, String newPassword);
 	
 	void resetPassword(String token, String newPassword, String confirmPassword);
 }

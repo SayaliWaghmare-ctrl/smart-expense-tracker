@@ -129,25 +129,21 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 
-	@Override
-	public boolean resetPassword(String token, String newPassword) {
-		
-		if(!validateResetToken(token))
-		{
-			return false;
-		}
-		
-		Optional<PasswordResetToken> tokenOptional = tokenRepository.findByToken(token);
-		PasswordResetToken resetToken = tokenOptional.get();
-		User user = resetToken.getUser();
-		
-		user.setPassword(passwordEncoder.encode(newPassword));
-		
-		userRepository.save(user);
-		tokenRepository.deleteByToken(token);
-		
-		return true;
-	}
+	/*
+	 * @Override public boolean resetPassword(String token, String newPassword) {
+	 * 
+	 * if(!validateResetToken(token)) { return false; }
+	 * 
+	 * Optional<PasswordResetToken> tokenOptional =
+	 * tokenRepository.findByToken(token); PasswordResetToken resetToken =
+	 * tokenOptional.get(); User user = resetToken.getUser();
+	 * 
+	 * user.setPassword(passwordEncoder.encode(newPassword));
+	 * 
+	 * userRepository.save(user); tokenRepository.deleteByToken(token);
+	 * 
+	 * return true; }
+	 */
 
 	private void validatePassword(String password) {
 	    
@@ -214,7 +210,7 @@ public class UserServiceImpl implements UserService{
 	    User user = resetToken.getUser();
 
 	    // Update password
-	    user.setPassword(newPassword);
+	    user.setPassword(passwordEncoder.encode(newPassword));
 
 	    userRepository.save(user);
 
