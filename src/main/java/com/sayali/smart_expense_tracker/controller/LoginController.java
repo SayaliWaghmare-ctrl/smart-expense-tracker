@@ -55,7 +55,6 @@ public class LoginController {
 			
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal(); 
 			String token = jwtService.generateToken(userDetails); 
-			System.out.println("JWT Token: " +token); 
 			
 			 Cookie jwtCookie = new Cookie("jwt", token);
 		        jwtCookie.setHttpOnly(true);
@@ -75,11 +74,5 @@ public class LoginController {
 		} 	
 	}
 	
-	@PostMapping("/logout")
-	public String logout(RedirectAttributes redirectAttributes) {
-
-	    redirectAttributes.addFlashAttribute("successMessage", "You have been logged out successfully!");
-
-	    return "redirect:/login";
-	}
+	
 }

@@ -54,8 +54,7 @@ public class SecurityConfig {
 	
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(
-	        HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 	    http.csrf(csrf -> csrf.disable())
 
@@ -72,7 +71,6 @@ public class SecurityConfig {
 	                "/css/**",
 	                "/js/**"
 	            ).permitAll()
-
 	            .anyRequest().authenticated()
 	        )
 
@@ -87,8 +85,14 @@ public class SecurityConfig {
 	        .addFilterBefore(
 	            jwtAuthenticationFilter,
 	            UsernamePasswordAuthenticationFilter.class
-	        );
+	        )
 
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .deleteCookies("jwt")
+	            .logoutSuccessUrl("/login")
+	        );
+	    
 	    return http.build();
 	}
 		
