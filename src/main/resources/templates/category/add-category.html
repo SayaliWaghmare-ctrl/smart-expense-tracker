@@ -1,57 +1,263 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Add Category</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Category | Smart Expense Tracker</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Category CSS -->
+    <link rel="stylesheet" th:href="@{/css/add-category.css}">
 </head>
+
 <body>
 
-    <h2>Add Category</h2>
+    <div class="category-page">
 
-             <!-- Success Message -->
-                <div th:if="${successMessage}"
-                     class="alert success-alert">
+        <!-- Header -->
+        <div class="page-header">
 
-                    <span>✓</span>
+            <div class="header-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
 
-                    <span th:text="${successMessage}">
-                        User created successfully!
-                    </span>
+            <div>
+                <h1>Create Category</h1>
+                <p>Create a category to organize your expenses and income.</p>
+            </div>
+
+        </div>
+
+
+        <!-- Success Message -->
+        <div th:if="${successMessage}"
+             class="alert success-alert">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span th:text="${successMessage}">
+                Category created successfully!
+            </span>
+
+        </div>
+
+
+        <!-- Error Message -->
+        <div th:if="${errorMessage}"
+             class="alert error-alert">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span th:text="${errorMessage}">
+                Something went wrong.
+            </span>
+
+        </div>
+
+
+        <!-- Category Card -->
+        <div class="category-card">
+
+            <div class="card-title">
+
+                <div class="title-icon">
+                    <i class="fa-solid fa-folder-plus"></i>
+                </div>
+
+                <div>
+                    <h2>Category Details</h2>
+                    <p>Enter the information for your new category.</p>
+                </div>
+
+            </div>
+
+
+            <form th:action="@{/category/saveCategory}"
+                  th:object="${categories}"
+                  method="post"
+                  id="categoryForm">
+
+
+                <!-- Category Name -->
+                <div class="form-group">
+
+                    <label for="name">
+                        Category Name
+                        <span>*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-tag"></i>
+
+                        <input type="text"
+                               id="name"
+                               th:field="*{name}"
+                               placeholder="e.g. Food, Travel, Salary"
+                               maxlength="50"
+                               required>
+
+                    </div>
+
+                    <small>
+                        Give your category a short and meaningful name.
+                    </small>
 
                 </div>
 
 
-                <!-- Error Message -->
-                <div th:if="${errorMessage}"
-                     class="alert error-alert">
+                <!-- Category Type -->
+                <div class="form-group">
 
-                    <span>!</span>
+                    <label for="type">
+                        Category Type
+                        <span>*</span>
+                    </label>
 
-                    <span th:text="${errorMessage}">
-                        Something went wrong.
-                    </span>
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-chart-pie"></i>
+
+                        <select id="type"
+                                th:field="*{type}"
+                                required>
+
+                            <option value="" disabled selected>
+                                Select category type
+                            </option>
+
+                            <option value="INCOME">
+                                Income
+                            </option>
+
+                            <option value="EXPENSE">
+                                Expense
+                            </option>
+
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+
+                    </div>
+
+                    <small>
+                        Choose whether this category is for income or expenses.
+                    </small>
+
                 </div>
-                
-                
-    <form th:action="@{/category/save}" th:object="${category}" method="post">
 
-        <div>
-            <label>Category Name:</label>
-            <input type="text" th:field="*{name}" required>
+
+                <!-- Description -->
+                <div class="form-group">
+
+                    <div class="label-row">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <span class="character-count">
+                            <span id="charCount">0</span>/200
+                        </span>
+
+                    </div>
+
+                    <div class="textarea-wrapper">
+
+                        <i class="fa-solid fa-align-left"></i>
+
+                        <textarea id="description"
+                                  th:field="*{description}"
+                                  placeholder="Describe this category..."
+                                  maxlength="200"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="form-actions">
+
+                    <a th:href="@{/home}"
+                       class="cancel-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Category
+
+                    </button>
+
+                </div>
+
+            </form>
+
         </div>
 
-        <br>
 
-        <div>
-            <label>Description:</label>
-            <textarea th:field="*{description}"></textarea>
+        <!-- Bottom Hint -->
+        <div class="page-hint">
+
+            <i class="fa-solid fa-lightbulb"></i>
+
+            <span>
+                Tip: Use separate categories such as Food, Transport,
+                Shopping and Entertainment to track your spending easily.
+            </span>
+
         </div>
 
-        <br>
+    </div>
 
-        <button type="submit">Save Category</button>
 
-    </form>
+    <script>
+
+        const description = document.getElementById("description");
+        const charCount = document.getElementById("charCount");
+
+        if (description) {
+
+            description.addEventListener("input", function () {
+
+                charCount.textContent = this.value.length;
+
+            });
+
+        }
+
+
+        const form = document.getElementById("categoryForm");
+
+        if (form) {
+
+            form.addEventListener("submit", function () {
+
+                const button = form.querySelector(".save-btn");
+
+                button.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+                button.disabled = true;
+
+            });
+
+        }
+
+    </script>
 
 </body>
+
 </html>
