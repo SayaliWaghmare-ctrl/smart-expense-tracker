@@ -60,13 +60,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
            
+        System.out.println("Requested URL: " + request.getRequestURI());
+        System.out.println("JWT found: " + (jwt != null));
+        System.out.println("Username: " + username);
+        
      // Extract username from JWT
         if (jwt != null) {
 
             try {
                 username = jwtService.extractUsername(jwt);
             } catch (Exception e) {
-                // Invalid JWT
+            	System.out.println("JWT Error: " + e.getMessage());
             }
         }
         
@@ -97,6 +101,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
+        System.out.println("Authentication: " +SecurityContextHolder.getContext().getAuthentication());
+        
         filterChain.doFilter(request, response);
     }
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+</head>
+<body>
+
+    <h2>Add Category</h2>
+
+             <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+
+                    <span>✓</span>
+
+                    <span th:text="${successMessage}">
+                        User created successfully!
+                    </span>
+
+                </div>
+
+
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+
+                    <span>!</span>
+
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+                </div>
+                
+                
+    <form th:action="@{/category/save}" th:object="${category}" method="post">
+
+        <div>
+            <label>Category Name:</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Description:</label>
+            <textarea th:field="*{description}"></textarea>
+        </div>
+
+        <br>
+
+        <button type="submit">Save Category</button>
+
+    </form>
+
+</body>
+</html>
