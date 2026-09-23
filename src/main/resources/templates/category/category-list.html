@@ -1,16 +1,239 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Category List</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/category-list.css}">
 </head>
+
 <body>
 
-    <h2>Category List</h2>
+<div class="category-container">
 
-    <div th:if="${successMessage}">
+    <!-- Header -->
+    <div class="category-header">
+
+        <div>
+            <h1>
+                <i class="fa-solid fa-layer-group"></i>
+                Categories
+            </h1>
+
+            <p>Manage your expense and income categories</p>
+        </div>
+
+        <a th:href="@{/category/new}" class="add-category-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Category
+        </a>
+
+    </div>
+
+
+    <!-- Success Message -->
+    <div th:if="${successMessage}" class="alert success-alert">
+        <i class="fa-solid fa-circle-check"></i>
         <span th:text="${successMessage}"></span>
     </div>
+
+
+    <!-- Search Section -->
+    <div class="category-tools">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text"
+                   id="categorySearch"
+                   placeholder="Search category...">
+
+        </div>
+
+    </div>
+
+
+    <!-- Category Table -->
+    <div class="table-card">
+
+        <table id="categoryTable">
+
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Category Name</th>
+                 <th>Category Type</th>
+                <th>Description</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="category, status : ${categories}">
+
+                <td th:text="${status.count}">
+                    1
+                </td>
+
+                <td class="category-name">
+                    <div class="category-icon">
+                        <i class="fa-solid fa-tag"></i>
+                    </div>
+
+                    <span th:text="${category.name}">
+                        Food
+                    </span>
+                </td>
+
+                 <td class="category-type"                  
+                    th:text="${category.type}">      
+                       EXPENSE                 
+                    
+                </td>
+                
+                <td class="description"
+                    th:text="${category.description}">
+                    Food and groceries
+                </td>
+
+                <td th:text="${#temporals.format(category.createdAt, 'dd MMM yyyy')}">
+                    23 Sep 2026
+                </td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <!-- Edit -->
+                        <a th:href="@{/category/edit/{id}(id=${category.id})}"
+                           class="edit-btn"
+                           title="Edit Category">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </a>
+
+
+                        <!-- Delete -->
+                        <form th:action="@{/category/delete/{id}(id=${category.id})}"
+                              method="post"
+                              class="delete-form"
+                              onsubmit="return confirmDelete();">
+
+                            <button type="submit"
+                                    class="delete-btn"
+                                    title="Delete Category">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Empty State -->
+            <tr th:if="${#lists.isEmpty(categories)}">
+
+                <td colspan="5">
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-folder-open"></i>
+
+                        <h3>No Categories Found</h3>
+
+                        <p>
+                            You haven't created any categories yet.
+                        </p>
+
+                        <a th:href="@{/category/new}"
+                           class="add-category-btn">
+
+                            <i class="fa-solid fa-plus"></i>
+                            Create Category
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * Search Categories
+     */
+    const searchInput = document.getElementById("categorySearch");
+
+    searchInput.addEventListener("keyup", function () {
+
+        const searchValue = this.value.toLowerCase();
+
+        const rows = document.querySelectorAll(
+            "#categoryTable tbody tr"
+        );
+
+        rows.forEach(function (row) {
+
+            const categoryName =
+                row.querySelector(".category-name");
+
+            if (!categoryName) {
+                return;
+            }
+
+            const categoryText =
+                categoryName.textContent.toLowerCase();
+
+            if (categoryText.includes(searchValue)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+
+        });
+
+    });
+
+
+    /*
+     * Delete Confirmation
+     */
+    function confirmDelete() {
+
+        return confirm(
+            "Are you sure you want to delete this category?"
+        );
+
+    }
+
+</script>
 
 </body>
 </html>

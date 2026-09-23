@@ -1,0 +1,389 @@
+@charset "ISO-8859-1";
+
+/* ==============================
+   CATEGORY PAGE
+   ============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #252525;
+}
+
+
+/* ==============================
+   MAIN CONTAINER
+   ============================== */
+
+.category-container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+
+/* ==============================
+   HEADER
+   ============================== */
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.category-header h1 {
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+
+.category-header h1 i {
+    margin-right: 8px;
+}
+
+.category-header p {
+    color: #777;
+    font-size: 15px;
+}
+
+
+/* ==============================
+   ADD CATEGORY BUTTON
+   ============================== */
+
+.add-category-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    background: #4f46e5;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.add-category-btn:hover {
+    background: #3730a3;
+    transform: translateY(-2px);
+}
+
+
+/* ==============================
+   SUCCESS MESSAGE
+   ============================== */
+
+.alert {
+    padding: 13px 17px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.success-alert {
+    background: #e8f7ee;
+    color: #18794e;
+    border: 1px solid #b7e4c7;
+}
+
+
+/* ==============================
+   SEARCH
+   ============================== */
+
+.category-tools {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    width: 300px;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #999;
+}
+
+.search-box input {
+    width: 100%;
+
+    padding: 12px 15px 12px 42px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    background: white;
+
+    transition: 0.2s ease;
+}
+
+.search-box input:focus {
+    border-color: #4f46e5;
+
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+
+/* ==============================
+   TABLE CARD
+   ============================== */
+
+.table-card {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==============================
+   TABLE
+   ============================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    min-width: 750px;
+}
+
+thead {
+    background: #f8f9fc;
+}
+
+th {
+    padding: 16px;
+
+    text-align: left;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #666;
+
+    border-bottom: 1px solid #eee;
+}
+
+td {
+    padding: 16px;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+
+/* ==============================
+   ROW INTERACTION
+   ============================== */
+
+tbody tr {
+    transition: 0.2s ease;
+}
+
+tbody tr:hover {
+    background: #fafaff;
+}
+
+
+/* ==============================
+   CATEGORY NAME
+   ============================== */
+
+.category-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-weight: 600;
+}
+
+.category-icon {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 8px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==============================
+   DESCRIPTION
+   ============================== */
+
+.description {
+    color: #777;
+
+    max-width: 300px;
+}
+
+
+/* ==============================
+   ACTION BUTTONS
+   ============================== */
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+/* Edit */
+
+.edit-btn {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.edit-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+
+/* Delete */
+
+.delete-btn {
+    background: #fff0f0;
+    color: #dc3545;
+}
+
+.delete-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+
+/* ==============================
+   EMPTY STATE
+   ============================== */
+
+.empty-state {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: #777;
+}
+
+.empty-state > i {
+    font-size: 50px;
+
+    color: #c5c5c5;
+
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    color: #444;
+
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+}
+
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (max-width: 768px) {
+
+    .category-container {
+        width: 95%;
+        margin: 25px auto;
+    }
+
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .category-header h1 {
+        font-size: 25px;
+    }
+
+    .add-category-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .category-tools {
+        justify-content: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+
+}

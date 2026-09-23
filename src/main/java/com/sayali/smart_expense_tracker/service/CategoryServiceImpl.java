@@ -1,6 +1,10 @@
 package com.sayali.smart_expense_tracker.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sayali.smart_expense_tracker.entity.Categories;
@@ -29,6 +33,23 @@ public class CategoryServiceImpl implements CategoryService{
 			throw new RuntimeException("Category already exists");
 		}
 		return categoryRepository.save(categories);
+	}
+
+	@Override
+	public List<Categories> getAllCategory() {
+	
+		return categoryRepository.findAll();
+	}
+
+	@Override
+	public void deleteCategory(Long id) {
+		
+		if(!categoryRepository.existsById(id))
+		{
+			throw new RuntimeException("Category not found with id: "+id);	
+		}
+		
+		categoryRepository.deleteById(id);
 	}
 
 	
