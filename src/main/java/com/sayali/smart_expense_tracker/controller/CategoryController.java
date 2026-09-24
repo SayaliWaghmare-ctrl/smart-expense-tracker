@@ -71,4 +71,28 @@ public class CategoryController {
 		return "redirect:/category/categoryListForm";
 		
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String updateCategory(@PathVariable Long id, Model model)
+	{
+		Categories categories = categoryService.getCategoryById(id);
+		model.addAttribute("categories", categories);
+		return "category/update-category";
+		
+	}
+	
+	@PostMapping("/editCategory")
+	public String updateCategoryForm(@ModelAttribute("categories") Categories categories, RedirectAttributes redirectAttributes)
+	{
+		try
+		{
+		   categoryService.updateCategory(categories.getId(), categories);
+		   redirectAttributes.addFlashAttribute("successMessage", "Category updated successfully !");
+		}catch(Exception e)
+		{
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+		}
+		return "redirect:/category/categoryListForm";
+		
+	}
 }

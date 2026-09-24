@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Category</title>
+
+    <!-- Font Awesome -->
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Category CSS -->
+<link rel="stylesheet" th:href="@{/css/update-category.css}">
+</head>
+<body>
+
+<div class="category-form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+
+        <div>
+            <h1>
+                <i class="fa-solid fa-pen-to-square"></i>
+                Update Category
+            </h1>
+
+            <p>
+                Update the details of your category
+            </p>
+        </div>
+
+        <a th:href="@{/category/categoryListForm}"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Categories
+
+        </a>
+
+         <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+
+                    <span>✓</span>
+
+                    <span th:text="${successMessage}">
+                        User created successfully!
+                    </span>
+
+                </div>
+
+
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+
+                    <span>!</span>
+
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+
+                </div>
+                
+    </div>
+
+
+    <!-- Form Card -->
+    <div class="category-form-card">
+
+        <form th:action="@{/category/editCategory}"  th:object="${categories}"  method="post">
+
+            <!-- Hidden ID -->
+            <input type="hidden"
+                   th:field="*{id}">
+
+
+            <!-- Category Name -->
+            <div class="form-group">
+
+                <label for="name">
+                    Category Name
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-tag"></i>
+
+                    <input type="text"
+                           id="name"
+                           th:field="*{name}"
+                           placeholder="Enter category name"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Category Type -->
+            <div class="form-group">
+
+                <label for="type">
+                    Category Type
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <select id="type"
+                            th:field="*{type}"
+                            required>
+
+                        <option value="">
+                            Select category type
+                        </option>
+
+                        <option value="INCOME">
+                            Income
+                        </option>
+
+                        <option value="EXPENSE">
+                            Expense
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <div class="textarea-wrapper">
+
+                    <i class="fa-solid fa-align-left"></i>
+
+                    <textarea id="description"
+                              th:field="*{description}"
+                              placeholder="Enter category description"
+                              rows="4"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+
+                <a th:href="@{/category/categoryListForm}"
+                   class="cancel-btn">
+
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel
+
+                </a>
+
+
+                <button type="submit"
+                        class="update-btn">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Update Category
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
