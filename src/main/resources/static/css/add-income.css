@@ -1,0 +1,300 @@
+@charset "ISO-8859-1";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #333;
+}
+
+
+/* Main Page */
+
+.income-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+
+/* Card */
+
+.income-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 35px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Header */
+
+.page-header {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.icon-box {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #e8f7ee;
+
+    color: #28a745;
+
+    border-radius: 12px;
+
+    font-size: 24px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+/* Messages */
+
+.success-message,
+.error-message {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+.success-message {
+    background: #e8f7ee;
+    color: #218838;
+}
+
+.error-message {
+    background: #fdeaea;
+    color: #dc3545;
+}
+
+
+/* Form */
+
+.income-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #444;
+}
+
+
+/* Input Wrapper */
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper > i {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #777;
+
+    pointer-events: none;
+}
+
+
+/* Inputs */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    border: 1px solid #d8dde5;
+
+    border-radius: 8px;
+
+    padding: 13px 15px 13px 45px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    background: #fff;
+
+    transition: 0.2s ease;
+}
+
+textarea {
+    resize: vertical;
+
+    min-height: 110px;
+}
+
+
+/* Textarea Icon */
+
+.textarea-wrapper > i {
+    top: 20px;
+
+    transform: none;
+}
+
+
+/* Focus */
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #28a745;
+
+    box-shadow:
+        0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+
+/* Buttons */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.cancel-btn,
+.save-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* Cancel */
+
+.cancel-btn {
+    color: #555;
+
+    background: #f0f2f5;
+}
+
+.cancel-btn:hover {
+    background: #e1e4e8;
+}
+
+
+/* Save */
+
+.save-btn {
+    border: none;
+
+    background: #28a745;
+
+    color: white;
+}
+
+.save-btn:hover {
+    background: #218838;
+
+    transform: translateY(-1px);
+}
+
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+    .income-card {
+        padding: 25px 20px;
+    }
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+}

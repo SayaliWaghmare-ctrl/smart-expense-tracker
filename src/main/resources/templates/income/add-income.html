@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Income</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Page CSS -->
+<link rel="stylesheet"  th:href="@{/css/add-income.css}">
+</head>
+
+<body>
+
+<div class="income-page">
+
+    <div class="income-card">
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <div class="icon-box">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+            </div>
+
+            <div>
+                <h1>Add Income</h1>
+                <p>Record your income details</p>
+            </div>
+
+        </div>
+
+
+        <!-- Success Message -->
+
+        <div th:if="${successMessage}"
+             class="success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span th:text="${successMessage}"></span>
+
+        </div>
+
+
+        <!-- Error Message -->
+
+        <div th:if="${errorMessage}"
+             class="error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span th:text="${errorMessage}"></span>
+
+        </div>
+
+
+        <!-- Income Form -->
+
+        <form th:action="@{/income/saveIncome}"
+              th:object="${income}"
+              method="post"
+              class="income-form">
+
+
+            <!-- Amount -->
+
+            <div class="form-group">
+
+                <label for="amount">
+                    Amount
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                    <input type="number"
+                           id="amount"
+                           th:field="*{amount}"
+                           placeholder="Enter income amount"
+                           step="0.01"
+                           min="0.01"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Source -->
+
+            <div class="form-group">
+
+                <label for="source">
+                    Source
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    <input type="text"
+                           id="source"
+                           th:field="*{source}"
+                           placeholder="e.g. Salary, Freelance, Bonus"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <select id="category"
+                            th:field="*{category}"
+                            required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Received Date -->
+
+            <div class="form-group">
+
+                <label for="date">
+                    Received Date
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <input type="date"
+                           id="date"
+                           th:field="*{date}"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <div class="input-wrapper textarea-wrapper">
+
+                    <i class="fa-solid fa-align-left"></i>
+
+                    <textarea id="description"
+                              th:field="*{description}"
+                              placeholder="Enter additional details (optional)"
+                              rows="4"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <a th:href="@{/home}"
+                   class="cancel-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Cancel
+
+                </a>
+
+                <button type="submit"
+                        class="save-btn">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Income
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
