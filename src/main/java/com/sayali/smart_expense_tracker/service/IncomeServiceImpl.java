@@ -22,7 +22,7 @@ public class IncomeServiceImpl implements IncomeService{
 		
 		User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User not found"));
 		income.setCreatedAt(LocalDate.now());
-		
+		income.setUser(user);
 		return incomeRepository.save(income);
 	}
 

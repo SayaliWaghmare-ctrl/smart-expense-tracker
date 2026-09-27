@@ -3,6 +3,7 @@ package com.sayali.smart_expense_tracker.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sayali.smart_expense_tracker.entity.Categories;
+import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Income;
 import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
@@ -32,10 +34,10 @@ public class IncomeController {
 	CategoryRepository categoryRepository;
 	
 	@GetMapping("/addIncome")
-	public String createIncome(Model model, Income income)
+	public String createIncome(Model model, Income income, Authentication authentication)
 	{
-		
-		List<Categories> categories  = categoryRepository.findAll();
+		String username = authentication.getName();
+		List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.INCOME);
 		
 		model.addAttribute("categories", categories);
 		model.addAttribute("income", new Income());
@@ -44,21 +46,19 @@ public class IncomeController {
 	}
 	
 	@PostMapping("/saveIncome")
-	public String saveIncome(@ModelAttribute("income") Income income, RedirectAttributes redirectAttributes)
+	public String saveIncome(@ModelAttribute("income") Income income, RedirectAttributes redirectAttributes, Authentication authentication)
 	{
 		try {
 			
-			incomeService.createIncome(income);
-			
-			
-			
+			String username = authentication.getName();
+			incomeService.createIncome(income, username);			
 			redirectAttributes.addFlashAttribute("successMessage", "Income created successfully !");
 			
 		}catch(Exception e)
 		{
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
-		return "income/add-income";
+		return "redirect:/income/addIncome";
 		
 	}
 }
