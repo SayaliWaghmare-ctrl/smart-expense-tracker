@@ -1,5 +1,7 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.repository.CategoryRepository;
+import com.sayali.smart_expense_tracker.service.CategoryService;
 import com.sayali.smart_expense_tracker.service.IncomeService;
 
 
@@ -19,9 +25,19 @@ public class IncomeController {
 	@Autowired
 	IncomeService incomeService;
 	
+	@Autowired
+	CategoryService categoryService;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@GetMapping("/addIncome")
-	public String createIncome(Model model)
+	public String createIncome(Model model, Income income)
 	{
+		
+		List<Categories> categories  = categoryRepository.findAll();
+		
+		model.addAttribute("categories", categories);
 		model.addAttribute("income", new Income());
 		return "income/add-income";
 		
@@ -33,13 +49,16 @@ public class IncomeController {
 		try {
 			
 			incomeService.createIncome(income);
+			
+			
+			
 			redirectAttributes.addFlashAttribute("successMessage", "Income created successfully !");
 			
 		}catch(Exception e)
 		{
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
-		return null;
+		return "income/add-income";
 		
 	}
 }
