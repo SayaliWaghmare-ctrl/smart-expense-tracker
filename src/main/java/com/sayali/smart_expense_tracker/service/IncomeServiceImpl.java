@@ -26,4 +26,15 @@ public class IncomeServiceImpl implements IncomeService{
 		return incomeRepository.save(income);
 	}
 
+	@Override
+	public void deleteIncome(Long id) {
+		
+		if(!incomeRepository.existsById(id))
+		{
+			throw new RuntimeException("Income not found with id "+id);
+		}
+		
+		incomeRepository.deleteById(id);
+	}
+
 }
