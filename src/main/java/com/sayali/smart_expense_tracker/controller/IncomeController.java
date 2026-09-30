@@ -91,4 +91,38 @@ public class IncomeController {
 		}
 		return "redirect:/income/incomeList";		
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String editIncome(@PathVariable Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes)
+	{
+		try {
+			
+		String username = authentication.getName();
+		Income income =  incomeService.getIncomeByID(id);
+        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.INCOME);
+		
+		model.addAttribute("categories", categories);
+		model.addAttribute("income", income);
+		
+		}catch(Exception e)
+		{
+			redirectAttributes.addFlashAttribute("successMessage", e.getMessage());
+		}
+		return "income/edit-income";		
+	}
+	
+	@PostMapping("/updateIncome")
+	public String editIncomeForm(@ModelAttribute("income") Income income, RedirectAttributes redirectAttributes)
+	{
+		try {
+			
+		    incomeService.updateIncome(income.getId(), income);
+		    redirectAttributes.addFlashAttribute("successMessage", "Income updated successfully !");
+		      
+		}catch(Exception e) {
+			
+			redirectAttributes.addFlashAttribute("successMessage", e.getMessage());
+		}
+		return "redirect:/income/incomeList";
+	}
 }

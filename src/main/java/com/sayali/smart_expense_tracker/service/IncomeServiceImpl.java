@@ -37,4 +37,25 @@ public class IncomeServiceImpl implements IncomeService{
 		incomeRepository.deleteById(id);
 	}
 
+	@Override
+	public Income getIncomeByID(Long id) {
+		
+		return incomeRepository.findById(id).orElseThrow(() -> new RuntimeException("Income not found with Id "+id));
+		
+	}
+
+	@Override
+	public Income updateIncome(Long id, Income income) {
+		
+		Income existIncome = incomeRepository.findById(id).orElseThrow(() -> new RuntimeException("Income not found with Id "+id));
+		existIncome.setAmount(income.getAmount());
+		existIncome.setSource(income.getSource());
+		existIncome.setCategory(income.getCategory());
+		existIncome.setDate(income.getDate());
+		existIncome.setDescription(income.getDescription());
+		existIncome.setUpdatedAt(LocalDate.now());
+		
+		return incomeRepository.save(existIncome);
+	}
+
 }

@@ -7,4 +7,8 @@ public interface IncomeService {
 	Income createIncome(Income income, String username);
 	
 	void deleteIncome(Long id);
+	
+	Income getIncomeByID(Long id);
+	
+	Income updateIncome(Long id, Income income);
 }

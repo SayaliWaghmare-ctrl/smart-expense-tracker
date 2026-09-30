@@ -4,14 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Update Category</title>
+<title>Update Income</title>
 
     <!-- Font Awesome -->
 <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- Category CSS -->
-<link rel="stylesheet" th:href="@{/css/update-category.css}">
+<link rel="stylesheet" th:href="@{/css/edit-income.css}">
 </head>
 <body>
 
@@ -23,20 +23,19 @@
         <div>
             <h1>
                 <i class="fa-solid fa-pen-to-square"></i>
-                Update Category
+                Update Income
             </h1>
 
             <p>
-                Update the details of your category
+                Update the details of your income
             </p>
         </div>
 
-        <a th:href="@{/category/categoryListForm}"
+        <a th:href="@{/income/incomeList}"
            class="back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
-            Back to Categories
-
+            Back to Income
         </a>
 
          <!-- Success Message -->
@@ -46,7 +45,7 @@
                     <span>✓</span>
 
                     <span th:text="${successMessage}">
-                        Category created successfully!
+                        Income created successfully!
                     </span>
 
                 </div>
@@ -62,93 +61,132 @@
                         Something went wrong.
                     </span>
 
-                </div>
-                
+                </div>                
     </div>
 
 
     <!-- Form Card -->
     <div class="category-form-card">
 
-        <form th:action="@{/category/editCategory}"  th:object="${categories}"  method="post">
+        <form th:action="@{/income/updateIncome}"  th:object="${income}"  method="post">
 
             <!-- Hidden ID -->
-            <input type="hidden"
-                   th:field="*{id}">
+            <input type="hidden"  th:field="*{id}">
 
 
-            <!-- Category Name -->
+                        <!-- Amount -->
+
             <div class="form-group">
 
-                <label for="name">
-                    Category Name
+                <label for="amount">
+                    Amount
                 </label>
 
                 <div class="input-wrapper">
 
-                    <i class="fa-solid fa-tag"></i>
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
 
-                    <input type="text"
-                           id="name"
-                           th:field="*{name}"
-                           placeholder="Enter category name"
+                    <input type="number"
+                           id="amount"
+                           th:field="*{amount}"
+                           placeholder="Enter income amount"
+                           step="0.01"
+                           min="0.01"
                            required>
                 </div>
             </div>
 
 
-            <!-- Category Type -->
+            <!-- Source -->
+
             <div class="form-group">
 
-                <label for="type">
-                    Category Type
+                <label for="source">
+                    Source
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    <input type="text"
+                           id="source"
+                           th:field="*{source}"
+                           placeholder="e.g. Salary, Freelance, Bonus"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
                 </label>
 
                 <div class="input-wrapper">
 
                     <i class="fa-solid fa-layer-group"></i>
 
-                    <select id="type"
-                            th:field="*{type}"
+                    <select id="category"
+                            th:field="*{category}"
                             required>
 
                         <option value="">
-                            Select category type
+                            Select category
                         </option>
 
-                        <option value="INCOME">
-                            Income
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
                         </option>
-
-                        <option value="EXPENSE">
-                            Expense
-                        </option>
-
                     </select>
-
                 </div>
+            </div>
 
+
+            <!-- Received Date -->
+
+            <div class="form-group">
+
+                <label for="date">
+                    Received Date
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <input type="date"
+                           id="date"
+                           th:field="*{date}"
+                           required>
+                </div>
             </div>
 
 
             <!-- Description -->
+
             <div class="form-group">
 
                 <label for="description">
                     Description
                 </label>
 
-                <div class="textarea-wrapper">
+                <div class="input-wrapper textarea-wrapper">
 
                     <i class="fa-solid fa-align-left"></i>
 
                     <textarea id="description"
                               th:field="*{description}"
-                              placeholder="Enter category description"
-                              rows="4"></textarea>
-
+                              placeholder="Enter additional details (optional)"
+                              rows="4">
+                    </textarea>
                 </div>
-
             </div>
 
 
@@ -168,7 +206,7 @@
                         class="update-btn">
 
                     <i class="fa-solid fa-floppy-disk"></i>
-                    Update Category
+                    Update Income
 
                 </button>
 

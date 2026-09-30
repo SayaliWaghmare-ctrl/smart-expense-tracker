@@ -68,8 +68,7 @@ public class CategoryController {
 	{
 		categoryService.deleteCategory(id);
 		redirectAttributes.addFlashAttribute("successMessage", "Category deleted successfully!");
-		return "redirect:/category/categoryListForm";
-		
+		return "redirect:/category/categoryListForm";		
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -77,8 +76,7 @@ public class CategoryController {
 	{
 		Categories categories = categoryService.getCategoryById(id);
 		model.addAttribute("categories", categories);
-		return "category/update-category";
-		
+		return "category/update-category";	
 	}
 	
 	@PostMapping("/editCategory")
@@ -88,6 +86,7 @@ public class CategoryController {
 		{
 		   categoryService.updateCategory(categories.getId(), categories);
 		   redirectAttributes.addFlashAttribute("successMessage", "Category updated successfully !");
+		   
 		}catch(Exception e)
 		{
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());

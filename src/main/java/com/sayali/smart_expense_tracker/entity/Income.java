@@ -2,6 +2,9 @@ package com.sayali.smart_expense_tracker.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +33,7 @@ public class Income {
 	private String source;
 	
 	@Column(name = "received_date", nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	
 	@Column(name = "description")
@@ -45,6 +49,7 @@ public class Income {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Categories category;
 
+	
 	//getter and setter
 	public Long getId() {
 		return id;
