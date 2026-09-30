@@ -349,6 +349,32 @@ tbody tr:hover {
 
 
 /* ==============================
+ Back Button 
+================================= */
+
+.back-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 10px 22px;
+    background-color: #475569;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #334155;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* ==============================
    RESPONSIVE
    ============================== */
 

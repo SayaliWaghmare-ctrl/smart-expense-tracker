@@ -89,26 +89,24 @@
                     1
                 </td>
 
-                <td class="category-name">
+                <td class="income-amount">
                     <div class="category-icon">
                         <i class="fa-solid fa-tag"></i>
                     </div>
 
-                    <span th:text="${income.amount}">
-                        
+                    <span th:text="${income.amount}">                       
                     </span>
                 </td>
 
-                 <td class="category-type"                  
-                    th:text="${income.date}">      
-                                                          
-                </td>
+                 <td class="income-date"                  
+                    th:text="${income.date}">                                                               
+                 </td>
                 
                 <td class="description"
                     th:text="${income.description}">                   
                 </td>
 
-                 <td class="description"
+                 <td class="source"
                     th:text="${income.source}">                  
                 </td>
 
@@ -121,7 +119,6 @@
                            title="Edit Income">
 
                             <i class="fa-solid fa-pen"></i>
-
                         </a>
 
                         <!-- Delete -->
@@ -172,7 +169,7 @@
     
      <a th:href="@{/home}"><button class="back-btn">Cancel</button></a>
      
-</div>
+  </div>
 
 
 <script>
@@ -186,24 +183,27 @@
 
         const searchValue = this.value.toLowerCase();
 
-        const rows = document.querySelectorAll(
-            "#categoryTable tbody tr"
-        );
+        const rows = document.querySelectorAll("#categoryTable tbody tr");
 
         rows.forEach(function (row) {
 
-            const categoryName =
-                row.querySelector(".category-name");
+            const amount = row.querySelector(".income-amount");
+            const source = row.querySelector(".source");
+            const date = row.querySelector(".income-date");
 
-            if (!categoryName) {
+            if (!amount) {
                 return;
             }
 
-            const categoryText =
-                categoryName.textContent.toLowerCase();
+            const amountText = amount.textContent.toLowerCase();
+            const dateText = date.textContent.toLowerCase();
+            const sourceText = source.textContent.toLowerCase();
 
-            if (categoryText.includes(searchValue)) {
-                row.style.display = "";
+            if (amountText.includes(searchValue) || dateText.includes(searchValue) || 
+                sourceText.includes(searchValue)) {
+            	
+                   row.style.display = "";
+                   
             } else {
                 row.style.display = "none";
             }
