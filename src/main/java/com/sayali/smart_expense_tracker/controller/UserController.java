@@ -104,7 +104,6 @@ public class UserController {
 		 try {
 
 		        userService.forgotPassword(user.getEmail());
-
 		        redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email.");
 
 		    } catch (RuntimeException e) {

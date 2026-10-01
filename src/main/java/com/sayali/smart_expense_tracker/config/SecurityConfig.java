@@ -68,6 +68,12 @@ public class SecurityConfig {
 	                "/users/save",
 	                "/users/forgot-password",
 	                "/users/forgot-password-form",
+	                "/users/resetPassword",
+	                "/users/userlist",
+	                "/users/edit/{id}",
+	                "/users/editUser",
+	                "/users/delete/{id}",
+	                "/users/reset-password-form",
 	                "/css/**",
 	                "/js/**"
 	            ).permitAll()

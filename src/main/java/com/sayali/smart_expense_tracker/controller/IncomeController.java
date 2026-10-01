@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Income;
@@ -64,10 +67,12 @@ public class IncomeController {
 	}
 	
 	@GetMapping("/incomeList")
-	public String getIncomeList(Model model, RedirectAttributes redirectAttributes)
+	public String getIncomeList(Model model, RedirectAttributes redirectAttributes, Authentication authentication)
 	{		
 		try {
-		List<Income> incomeList= incomeRepository.findAll();
+			
+		String username = authentication.getName();	
+		List<Income> incomeList= incomeRepository.findByUserUsername(username);
 		model.addAttribute("incomeList", incomeList);
 		
 		}catch(Exception e)
@@ -124,5 +129,15 @@ public class IncomeController {
 			redirectAttributes.addFlashAttribute("successMessage", e.getMessage());
 		}
 		return "redirect:/income/incomeList";
+	}
+	
+	@GetMapping("/calculate")
+	public String calculateIncome(Model model, Authentication authentication)
+	{
+		String username = authentication.getName();
+		BigDecimal totalIncome = incomeService.calculateTotalIncome(username);
+		
+		model.addAttribute("totalIncome", totalIncome);
+		return "income/calculate-income";		
 	}
 }

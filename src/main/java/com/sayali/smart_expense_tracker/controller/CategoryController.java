@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.Categories;
+import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
 
 @Controller
@@ -22,13 +23,15 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@GetMapping("/addCategory")
 	public String addCategory(Model model)
 	{
 		model.addAttribute("categories", new Categories());
 
-		return "category/add-category";
-		
+		return "category/add-category";	
 	}
 	
 	@PostMapping("/saveCategory")
@@ -56,9 +59,11 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/categoryListForm")
-	public String categoryListForm(Model model) {
+	public String categoryListForm(Model model, Authentication authentication) {
 
-		List<Categories> categories = categoryService.getAllCategory();		
+		String username = authentication.getName();
+		List<Categories> categories = categoryRepository.findByUserUsername(username);	
+		
 		model.addAttribute("categories", categories);
 	    return "category/category-list";
 	}

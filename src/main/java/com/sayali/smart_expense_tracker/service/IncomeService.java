@@ -1,5 +1,7 @@
 package com.sayali.smart_expense_tracker.service;
 
+import java.math.BigDecimal;
+
 import com.sayali.smart_expense_tracker.entity.Income;
 
 public interface IncomeService {
@@ -11,4 +13,6 @@ public interface IncomeService {
 	Income getIncomeByID(Long id);
 	
 	Income updateIncome(Long id, Income income);
+	
+	BigDecimal calculateTotalIncome(String username);
 }

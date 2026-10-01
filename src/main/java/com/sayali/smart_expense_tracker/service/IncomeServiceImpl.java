@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,12 @@ public class IncomeServiceImpl implements IncomeService{
 		existIncome.setUpdatedAt(LocalDate.now());
 		
 		return incomeRepository.save(existIncome);
+	}
+
+	@Override
+	public BigDecimal calculateTotalIncome(String username) {
+		
+		return incomeRepository.calculateTotalIncome(username);
 	}
 
 }
