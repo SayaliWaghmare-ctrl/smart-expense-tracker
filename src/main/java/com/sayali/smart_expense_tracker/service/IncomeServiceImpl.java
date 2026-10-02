@@ -65,4 +65,28 @@ public class IncomeServiceImpl implements IncomeService{
 		return incomeRepository.calculateTotalIncome(username);
 	}
 
+	@Override
+	public long countIncome(String username) {
+		
+		return incomeRepository.countByUserUsername(username);
+	}
+
+	@Override
+	public BigDecimal calculateAverageIncome(String username) {
+		
+		return incomeRepository.calculateAverageIncome(username);
+	}
+
+	@Override
+	public BigDecimal calculateHighestIncome(String username) {
+		
+		return incomeRepository.calculateHighestIncome(username);
+	}
+
+	@Override
+	public BigDecimal calculateLowestIncome(String username) {
+		
+		return incomeRepository.calculateLowestIncome(username);
+	}
+
 }

@@ -135,9 +135,19 @@ public class IncomeController {
 	public String calculateIncome(Model model, Authentication authentication)
 	{
 		String username = authentication.getName();
-		BigDecimal totalIncome = incomeService.calculateTotalIncome(username);
 		
+		BigDecimal totalIncome = incomeService.calculateTotalIncome(username);		
+		long incomeCount = incomeService.countIncome(username);
+		BigDecimal averageIncome = incomeService.calculateAverageIncome(username);
+		BigDecimal highestIncome = incomeService.calculateHighestIncome(username);
+		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username);
+		
+		model.addAttribute("averageIncome", averageIncome);
+		model.addAttribute("highestIncome", highestIncome);
+		model.addAttribute("lowestIncome", lowestIncome);
+		model.addAttribute("incomeCount", incomeCount);
 		model.addAttribute("totalIncome", totalIncome);
+		
 		return "income/calculate-income";		
 	}
 }

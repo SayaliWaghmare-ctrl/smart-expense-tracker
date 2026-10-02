@@ -15,4 +15,14 @@ public interface IncomeService {
 	Income updateIncome(Long id, Income income);
 	
 	BigDecimal calculateTotalIncome(String username);
+	
+	BigDecimal calculateAverageIncome(String username);
+
+	BigDecimal calculateHighestIncome(String username);
+
+	BigDecimal calculateLowestIncome(String username);
+	
+	long countIncome(String username);
+	
+	
 }

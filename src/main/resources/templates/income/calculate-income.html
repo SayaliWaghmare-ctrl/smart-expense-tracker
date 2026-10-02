@@ -398,21 +398,13 @@
 <!-- Bottom Actions -->
 
 <div class="bottom-actions">
-
-    <a th:href="@{/income/incomeList}"
+    <a th:href="@{/home}"
        class="cancel-btn">
-
         <i class="fa-solid fa-arrow-left"></i>
-
-        Back to Income
-
+        Cancel
     </a>
-
 </div>
-```
-
 </div>
-
 <script>
 
     const fromDate = document.getElementById("fromDate");
@@ -423,24 +415,17 @@
         if (!fromDate.value || !toDate.value) {
 
             alert("Please select both From Date and To Date.");
-
             event.preventDefault();
-
             return;
         }
 
         if (fromDate.value > toDate.value) {
 
             alert("From Date cannot be greater than To Date.");
-
             event.preventDefault();
-
         }
-
     });
 
 </script>
-
 </body>
-
 </html>
