@@ -53,56 +53,40 @@
 
         <div>
             <h2>Select Period</h2>
-
             <p>
                 Select a date range to calculate your income.
             </p>
         </div>
-
     </div>
 
-
-    <form th:action="@{/income/calculate}"
-          method="get"
-          class="date-form">
-
+    <form th:action="@{/income/calculate}"  method="get" class="date-form">
         <div class="date-field">
-
             <label for="fromDate">
                 From Date
             </label>
 
             <div class="input-wrapper">
-
                 <i class="fa-regular fa-calendar"></i>
 
                 <input type="date"
                        id="fromDate"
                        name="fromDate"
                        th:value="${fromDate}">
-
             </div>
-
         </div>
 
-
         <div class="date-field">
-
             <label for="toDate">
                 To Date
             </label>
-
             <div class="input-wrapper">
-
                 <i class="fa-regular fa-calendar"></i>
 
                 <input type="date"
                        id="toDate"
                        name="toDate"
                        th:value="${toDate}">
-
             </div>
-
         </div>
 
 
@@ -147,42 +131,28 @@
         <!-- Total Income -->
 
         <div class="summary-card total-card">
-
             <div class="summary-icon">
-
                 <i class="fa-solid fa-indian-rupee-sign"></i>
-
             </div>
-
             <div class="summary-content">
-
                 <span class="summary-label">
                     Total Income
                 </span>
-
                 <h3>
                     ₹<span th:text="${totalIncome ?: 0}">
                         0
                     </span>
                 </h3>
-
             </div>
-
         </div>
 
-
         <!-- Number of Income Records -->
-
         <div class="summary-card">
-
             <div class="summary-icon">
-
                 <i class="fa-solid fa-file-invoice-dollar"></i>
-
             </div>
 
             <div class="summary-content">
-
                 <span class="summary-label">
                     Income Records
                 </span>
@@ -190,11 +160,8 @@
                 <h3 th:text="${incomeCount ?: 0}">
                     0
                 </h3>
-
             </div>
-
         </div>
-
 
         <!-- Average Income -->
 
@@ -226,27 +193,20 @@
         <!-- Highest Income -->
 
         <div class="summary-card">
-
             <div class="summary-icon">
-
                 <i class="fa-solid fa-arrow-up"></i>
-
             </div>
 
             <div class="summary-content">
-
                 <span class="summary-label">
                     Highest Income
                 </span>
-
                 <h3>
                     ₹<span th:text="${highestIncome ?: 0}">
                         0
                     </span>
                 </h3>
-
             </div>
-
         </div>
 
 
@@ -309,68 +269,20 @@
 
 
         <div class="source-list">
-
-
-            <!-- Salary -->
-
-            <div class="source-row">
-
+            <div  th:each="source : ${sourceSummaries}"  class="source-row">
                 <div class="source-name">
-
                     <div class="source-small-icon">
-                        <i class="fa-solid fa-briefcase"></i>
+                        <i class="fa-solid fa-chart-line"></i>
                     </div>
-
-                    <span>Salary</span>
-
+                    <span th:text="${source.source}">                    
+                    </span>
                 </div>
 
                 <strong>
-                    ₹60,000
+                    ₹<span th:text="${source.totalAmount}">
+                    0
+                    </span>
                 </strong>
-
-            </div>
-
-
-            <!-- Freelancing -->
-
-            <div class="source-row">
-
-                <div class="source-name">
-
-                    <div class="source-small-icon">
-                        <i class="fa-solid fa-laptop-code"></i>
-                    </div>
-
-                    <span>Freelancing</span>
-
-                </div>
-
-                <strong>
-                    ₹10,000
-                </strong>
-
-            </div>
-
-
-            <!-- Bonus -->
-
-            <div class="source-row">
-
-                <div class="source-name">
-
-                    <div class="source-small-icon">
-                        <i class="fa-solid fa-gift"></i>
-                    </div>
-
-                    <span>Bonus</span>
-
-                </div>
-
-                <strong>
-                    ₹5,000
-                </strong>
-
             </div>
 
 
@@ -383,15 +295,14 @@
                 </span>
 
                 <strong>
-                    ₹75,000
+                     ₹<span th:text="${totalIncome ?: 0}">
+                     0
+                   </span>  
                 </strong>
-
             </div>
-
+            
         </div>
-
     </div>
-
 </div>
 
 
@@ -405,6 +316,7 @@
     </a>
 </div>
 </div>
+
 <script>
 
     const fromDate = document.getElementById("fromDate");

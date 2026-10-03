@@ -1,6 +1,7 @@
 package com.sayali.smart_expense_tracker.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.entity.IncomeSourceSummary;
 import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.repository.IncomeRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
@@ -141,7 +144,9 @@ public class IncomeController {
 		BigDecimal averageIncome = incomeService.calculateAverageIncome(username);
 		BigDecimal highestIncome = incomeService.calculateHighestIncome(username);
 		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username);
+		List<IncomeSourceSummary> sourceSummaries = incomeService.calculateIncomeBySource(username);
 		
+		model.addAttribute("sourceSummaries", sourceSummaries);
 		model.addAttribute("averageIncome", averageIncome);
 		model.addAttribute("highestIncome", highestIncome);
 		model.addAttribute("lowestIncome", lowestIncome);
@@ -149,5 +154,21 @@ public class IncomeController {
 		model.addAttribute("totalIncome", totalIncome);
 		
 		return "income/calculate-income";		
+	}
+	
+	@GetMapping("calculateByDate")
+	public String calculateIncomeByDate( @RequestParam LocalDate fromDate,@RequestParam LocalDate toDate,
+			Authentication authentication,Model model)
+	{
+		
+		String username = authentication.getName();		
+		BigDecimal totalIncome = incomeService.calculateTotalIncomeByDate(username, fromDate, toDate);
+		
+		 model.addAttribute("totalIncome", totalIncome);
+		 model.addAttribute("fromDate", fromDate);
+		 model.addAttribute("toDate", toDate);
+		    
+		return "income/calculate-income";
+		
 	}
 }

@@ -1,8 +1,11 @@
 package com.sayali.smart_expense_tracker.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.entity.IncomeSourceSummary;
 
 public interface IncomeService {
 
@@ -24,5 +27,7 @@ public interface IncomeService {
 	
 	long countIncome(String username);
 	
+	List<IncomeSourceSummary> calculateIncomeBySource(String username);
 	
+	BigDecimal calculateTotalIncomeByDate(String username, LocalDate fromDate, LocalDate toDate);
 }

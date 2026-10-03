@@ -2,9 +2,12 @@ package com.sayali.smart_expense_tracker.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.entity.IncomeSourceSummary;
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.repository.IncomeRepository;
 import com.sayali.smart_expense_tracker.repository.UserRepository;
@@ -87,6 +90,18 @@ public class IncomeServiceImpl implements IncomeService{
 	public BigDecimal calculateLowestIncome(String username) {
 		
 		return incomeRepository.calculateLowestIncome(username);
+	}
+
+	@Override
+	public List<IncomeSourceSummary> calculateIncomeBySource(String username) {
+		
+		return incomeRepository.calculateIncomeBySource(username);
+	}
+
+	@Override
+	public BigDecimal calculateTotalIncomeByDate(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return incomeRepository.calculateTotalIncomeByDate(username, fromDate, toDate);
 	}
 
 }
