@@ -19,15 +19,15 @@ public interface IncomeService {
 	
 	BigDecimal calculateTotalIncome(String username);
 	
-	BigDecimal calculateAverageIncome(String username);
+	BigDecimal calculateAverageIncome(String username, LocalDate fromDate, LocalDate toDate);
 
-	BigDecimal calculateHighestIncome(String username);
+	BigDecimal calculateHighestIncome(String username, LocalDate fromDate, LocalDate toDate);
 
-	BigDecimal calculateLowestIncome(String username);
+	BigDecimal calculateLowestIncome(String username, LocalDate fromDate, LocalDate toDate);
 	
 	long countIncome(String username, LocalDate fromDate, LocalDate toDate);
 	
-	List<IncomeSourceSummary> calculateIncomeBySource(String username);
+	List<IncomeSourceSummary> calculateIncomeBySource(String username, LocalDate fromDate, LocalDate toDate);
 	
 	BigDecimal calculateTotalIncomeByDate(String username, LocalDate fromDate, LocalDate toDate);
 }

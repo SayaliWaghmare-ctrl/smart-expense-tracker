@@ -171,10 +171,10 @@ public class IncomeController {
 		String username = authentication.getName();		
 		BigDecimal totalIncome = incomeService.calculateTotalIncomeByDate(username, fromDate, toDate);
 		long incomeCount = incomeService.countIncome(username, fromDate, toDate); 
-		BigDecimal averageIncome = incomeService.calculateAverageIncome(username); 
-		BigDecimal highestIncome = incomeService.calculateHighestIncome(username); 
-		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username); 
-		List<IncomeSourceSummary> sourceSummaries = incomeService.calculateIncomeBySource(username);
+		BigDecimal averageIncome = incomeService.calculateAverageIncome(username, fromDate, toDate); 
+		BigDecimal highestIncome = incomeService.calculateHighestIncome(username, fromDate, toDate); 
+		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username, fromDate, toDate); 
+		List<IncomeSourceSummary> sourceSummaries = incomeService.calculateIncomeBySource(username, fromDate, toDate);
 				 
 		 model.addAttribute("sourceSummaries", sourceSummaries);
 		 model.addAttribute("averageIncome", averageIncome);

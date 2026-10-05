@@ -75,27 +75,27 @@ public class IncomeServiceImpl implements IncomeService{
 	}
 
 	@Override
-	public BigDecimal calculateAverageIncome(String username) {
+	public BigDecimal calculateAverageIncome(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return incomeRepository.calculateAverageIncome(username);
+		return incomeRepository.calculateAverageIncome(username, fromDate, toDate);
 	}
 
 	@Override
-	public BigDecimal calculateHighestIncome(String username) {
+	public BigDecimal calculateHighestIncome(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return incomeRepository.calculateHighestIncome(username);
+		return incomeRepository.calculateHighestIncome(username, fromDate, toDate);
 	}
 
 	@Override
-	public BigDecimal calculateLowestIncome(String username) {
+	public BigDecimal calculateLowestIncome(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return incomeRepository.calculateLowestIncome(username);
+		return incomeRepository.calculateLowestIncome(username, fromDate, toDate);
 	}
 
 	@Override
-	public List<IncomeSourceSummary> calculateIncomeBySource(String username) {
+	public List<IncomeSourceSummary> calculateIncomeBySource(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return incomeRepository.calculateIncomeBySource(username);
+		return incomeRepository.calculateIncomeBySource(username, fromDate, toDate);
 	}
 
 	@Override
