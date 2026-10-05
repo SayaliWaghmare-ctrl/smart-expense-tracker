@@ -69,9 +69,9 @@ public class IncomeServiceImpl implements IncomeService{
 	}
 
 	@Override
-	public long countIncome(String username) {
+	public long countIncome(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return incomeRepository.countByUserUsername(username);
+		return incomeRepository.countIncomeByDate(username, fromDate, toDate);
 	}
 
 	@Override

@@ -25,7 +25,8 @@ public interface IncomeRepository extends JpaRepository<Income, Long>{
 	@Query("SELECT COALESCE (MIN(i.amount), 0) FROM Income i WHERE i.user.username = :username")
 	BigDecimal calculateLowestIncome(@Param("username") String username);
 	
-	long countByUserUsername(String username);
+	@Query("SELECT COUNT(i) FROM Income i WHERE i.user.username = :username AND i.date BETWEEN :fromDate AND :toDate")
+	long countIncomeByDate(@Param("username") String username,@Param("fromDate") LocalDate fromDate,@Param("toDate") LocalDate toDate);
 	
 	@Query("SELECT new com.sayali.smart_expense_tracker.entity.IncomeSourceSummary(i.source, SUM(i.amount)) "
 			+ "FROM Income i WHERE i.user.username = :username "

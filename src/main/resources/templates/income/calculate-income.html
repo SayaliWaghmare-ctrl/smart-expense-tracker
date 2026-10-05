@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <form th:action="@{/income/calculate}"  method="get" class="date-form">
+    <form th:action="@{/income/calculateByDate}"  method="get" class="date-form">
         <div class="date-field">
             <label for="fromDate">
                 From Date
@@ -71,7 +71,7 @@
                 <input type="date"
                        id="fromDate"
                        name="fromDate"
-                       th:value="${fromDate}">
+                       required>
             </div>
         </div>
 
@@ -82,25 +82,19 @@
             <div class="input-wrapper">
                 <i class="fa-regular fa-calendar"></i>
 
-                <input type="date"
-                       id="toDate"
+                <input type="date"  
+                       id="toDate"  
                        name="toDate"
-                       th:value="${toDate}">
+                       required>
             </div>
         </div>
 
-
         <button type="submit"
                 class="calculate-btn">
-
             <i class="fa-solid fa-calculator"></i>
-
             Calculate
-
         </button>
-
     </form>
-
 </div>
 
 
@@ -109,17 +103,12 @@
 <div class="result-section">
 
     <div class="section-heading">
-
         <div>
-
             <h2>Income Overview</h2>
-
             <p>
                 Your income calculation for the selected period.
             </p>
-
         </div>
-
     </div>
 
 
@@ -316,7 +305,7 @@
     </a>
 </div>
 </div>
-
+<!-- 
 <script>
 
     const fromDate = document.getElementById("fromDate");
@@ -338,6 +327,6 @@
         }
     });
 
-</script>
+</script> -->
 </body>
 </html>

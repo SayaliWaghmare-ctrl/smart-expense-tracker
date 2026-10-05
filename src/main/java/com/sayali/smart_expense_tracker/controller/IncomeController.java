@@ -134,36 +134,53 @@ public class IncomeController {
 		return "redirect:/income/incomeList";
 	}
 	
-	@GetMapping("/calculate")
-	public String calculateIncome(Model model, Authentication authentication)
-	{
-		String username = authentication.getName();
-		
-		BigDecimal totalIncome = incomeService.calculateTotalIncome(username);		
-		long incomeCount = incomeService.countIncome(username);
-		BigDecimal averageIncome = incomeService.calculateAverageIncome(username);
-		BigDecimal highestIncome = incomeService.calculateHighestIncome(username);
-		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username);
-		List<IncomeSourceSummary> sourceSummaries = incomeService.calculateIncomeBySource(username);
-		
-		model.addAttribute("sourceSummaries", sourceSummaries);
-		model.addAttribute("averageIncome", averageIncome);
-		model.addAttribute("highestIncome", highestIncome);
-		model.addAttribute("lowestIncome", lowestIncome);
-		model.addAttribute("incomeCount", incomeCount);
-		model.addAttribute("totalIncome", totalIncome);
-		
-		return "income/calculate-income";		
+	/*
+	 * @GetMapping("/calculate") public String calculateIncome(Model model,
+	 * Authentication authentication) { String username = authentication.getName();
+	 * 
+	 * BigDecimal totalIncome = incomeService.calculateTotalIncome(username); long
+	 * incomeCount = incomeService.countIncome(username); BigDecimal averageIncome =
+	 * incomeService.calculateAverageIncome(username); BigDecimal highestIncome =
+	 * incomeService.calculateHighestIncome(username); BigDecimal lowestIncome =
+	 * incomeService.calculateLowestIncome(username); List<IncomeSourceSummary>
+	 * sourceSummaries = incomeService.calculateIncomeBySource(username);
+	 * 
+	 * model.addAttribute("sourceSummaries", sourceSummaries);
+	 * model.addAttribute("averageIncome", averageIncome);
+	 * model.addAttribute("highestIncome", highestIncome);
+	 * model.addAttribute("lowestIncome", lowestIncome);
+	 * model.addAttribute("incomeCount", incomeCount);
+	 * model.addAttribute("totalIncome", totalIncome);
+	 * 
+	 * return "income/calculate-income"; }
+	 */
+	
+	
+	@GetMapping("/calculateIncome")
+	public String calculateIncomePage() {
+	    return "income/calculate-income";
 	}
 	
+	
 	@GetMapping("calculateByDate")
-	public String calculateIncomeByDate( @RequestParam LocalDate fromDate,@RequestParam LocalDate toDate,
-			Authentication authentication,Model model)
+	public String calculateIncomeByDate(@RequestParam("fromDate") LocalDate fromDate,
+			                            @RequestParam("toDate") LocalDate toDate,
+			                            Authentication authentication,Model model)
 	{
 		
 		String username = authentication.getName();		
 		BigDecimal totalIncome = incomeService.calculateTotalIncomeByDate(username, fromDate, toDate);
-		
+		long incomeCount = incomeService.countIncome(username, fromDate, toDate); 
+		BigDecimal averageIncome = incomeService.calculateAverageIncome(username); 
+		BigDecimal highestIncome = incomeService.calculateHighestIncome(username); 
+		BigDecimal lowestIncome = incomeService.calculateLowestIncome(username); 
+		List<IncomeSourceSummary> sourceSummaries = incomeService.calculateIncomeBySource(username);
+				 
+		 model.addAttribute("sourceSummaries", sourceSummaries);
+		 model.addAttribute("averageIncome", averageIncome);
+		 model.addAttribute("highestIncome", highestIncome);
+		 model.addAttribute("lowestIncome", lowestIncome);
+		 model.addAttribute("incomeCount", incomeCount);
 		 model.addAttribute("totalIncome", totalIncome);
 		 model.addAttribute("fromDate", fromDate);
 		 model.addAttribute("toDate", toDate);

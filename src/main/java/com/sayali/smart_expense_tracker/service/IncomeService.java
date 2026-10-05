@@ -25,7 +25,7 @@ public interface IncomeService {
 
 	BigDecimal calculateLowestIncome(String username);
 	
-	long countIncome(String username);
+	long countIncome(String username, LocalDate fromDate, LocalDate toDate);
 	
 	List<IncomeSourceSummary> calculateIncomeBySource(String username);
 	
