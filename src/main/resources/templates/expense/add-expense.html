@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Add Expense</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- Expense CSS -->
-    <link rel="stylesheet"  th:href="@{/css/add-expense.css}">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Expense</title>
+<!-- Font Awesome -->
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<!-- Expense CSS -->
+<link rel="stylesheet"  th:href="@{/css/add-expense.css}">
 </head>
 
 <body>
@@ -22,11 +16,9 @@
 
     <!-- Header -->
     <div class="expense-header">
-
         <a th:href="@{/home}" class="back-btn">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
-
         <div>
             <h1>
                 <i class="fa-solid fa-wallet"></i>
@@ -35,10 +27,26 @@
 
             <p>Track your spending and stay in control of your money.</p>
         </div>
-
     </div>
 
 
+        <!-- Success Message -->
+        <div th:if="${successMessage}"
+             class="alert success-alert">
+
+            <i class="fa-solid fa-circle-check"></i>
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <!-- Error Message -->
+        <div th:if="${errorMessage}"
+             class="alert error-alert">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span th:text="${errorMessage}"></span>
+        </div>
+        
+        
     <!-- Main Card -->
     <div class="expense-card">
 

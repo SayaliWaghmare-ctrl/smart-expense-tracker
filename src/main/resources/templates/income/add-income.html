@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8">
@@ -10,29 +9,24 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Page CSS -->
+<!-- Page CSS -->
 <link rel="stylesheet"  th:href="@{/css/add-income.css}">
 </head>
 
 <body>
 
 <div class="income-page">
-
     <div class="income-card">
 
         <!-- Header -->
-
         <div class="page-header">
-
             <div class="icon-box">
                 <i class="fa-solid fa-money-bill-trend-up"></i>
             </div>
-
             <div>
                 <h1>Add Income</h1>
                 <p>Record your income details</p>
             </div>
-
         </div>
 
 
@@ -64,15 +58,11 @@
             <!-- Amount -->
 
             <div class="form-group">
-
                 <label for="amount">
                     Amount
                 </label>
-
                 <div class="input-wrapper">
-
                     <i class="fa-solid fa-indian-rupee-sign"></i>
-
                     <input type="number"
                            id="amount"
                            th:field="*{amount}"
