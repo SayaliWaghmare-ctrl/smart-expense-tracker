@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Income;

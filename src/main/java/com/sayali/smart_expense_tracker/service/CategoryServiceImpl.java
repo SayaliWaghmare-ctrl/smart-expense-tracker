@@ -8,6 +8,7 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sayali.smart_expense_tracker.entity.Categories;
+import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.repository.UserRepository;
@@ -69,6 +70,12 @@ public class CategoryServiceImpl implements CategoryService{
 		existCategory.setUpdatedAt(LocalDateTime.now());
 		
 		return categoryRepository.save(existCategory);
+	}
+
+	@Override
+	public List<Categories> getExpenseCategoriesByUsername(String username) {
+		
+	    return categoryRepository.findByUserUsernameAndType(username, CategoryType.EXPENSE);
 	}
 
 	

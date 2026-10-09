@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Expense</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Expense CSS -->
+    <link rel="stylesheet"  th:href="@{/css/add-expense.css}">
+
+</head>
+
+<body>
+
+<div class="expense-page">
+
+    <!-- Header -->
+    <div class="expense-header">
+
+        <a th:href="@{/home}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <div>
+            <h1>
+                <i class="fa-solid fa-wallet"></i>
+                Add Expense
+            </h1>
+
+            <p>Track your spending and stay in control of your money.</p>
+        </div>
+
+    </div>
+
+
+    <!-- Main Card -->
+    <div class="expense-card">
+
+        <form th:action="@{/expense/saveExpense}"
+              th:object="${expense}"
+              method="post"
+              id="expenseForm">
+
+
+            <!-- Amount -->
+            <div class="form-section">
+
+                <label for="amount">
+                    Amount
+                    <span>*</span>
+                </label>
+
+                <div class="amount-wrapper">
+
+                    <span class="currency">₹</span>
+
+                    <input type="number"
+                           id="amount"
+                           th:field="*{amount}"
+                           placeholder="0.00"
+                           min="0.01"
+                           step="0.01"
+                           required>
+
+                </div>
+
+                <small class="field-hint">
+                    Enter the amount you spent.
+                </small>
+
+            </div>
+
+
+            <!-- Category -->
+            <div class="form-section">
+
+                <label for="category">
+                    Category
+                    <span>*</span>
+                </label>
+
+                <div class="select-wrapper">
+
+                    <i class="fa-solid fa-tags"></i>
+
+                    <select id="category"
+                            th:field="*{category}"
+                            required>
+
+                        <option value="">Select expense category</option>
+
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+
+                    </select>
+
+                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+
+                </div>
+            </div>
+
+
+            <!-- Date -->
+            <div class="form-section">
+
+                <div class="label-row">
+
+                    <label for="expenseDate">
+                        Expense Date
+                        <span>*</span>
+                    </label>
+
+                    <button type="button"
+                            class="today-btn"
+                            onclick="setToday()">
+                        Today
+                    </button>
+
+                </div>
+
+                <div class="input-icon">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <input type="date"
+                           id="expenseDate"
+                           th:field="*{expenseDate}"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Payment Method -->
+            <div class="form-section">
+
+                <label>
+                    Payment Method
+                    <span>*</span>
+                </label>
+
+                <div class="payment-grid">
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="CASH"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <span>Cash</span>
+                        </div>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="CREDIT_CARD"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span>Credit Card</span>
+                        </div>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="DEBIT_CARD"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-regular fa-credit-card"></i>
+                            <span>Debit Card</span>
+                        </div>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="UPI"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <span>UPI</span>
+                        </div>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="BANK_TRANSFER"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>Bank Transfer</span>
+                        </div>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="OTHER"
+                               th:field="*{paymentMethod}">
+
+                        <div class="payment-card">
+                            <i class="fa-solid fa-ellipsis"></i>
+                            <span>Other</span>
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="form-section">
+
+                <div class="label-row">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <span class="character-count">
+                        <span id="characterCount">0</span>/500
+                    </span>
+
+                </div>
+
+                <textarea id="notes"
+                          th:field="*{notes}"
+                          maxlength="500"
+                          placeholder="Add a note about this expense..."></textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+
+                <a th:href="@{/home}"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="save-btn">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Save Expense
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Set today's date
+    function setToday() {
+
+        const today = new Date();
+
+        const year = today.getFullYear();
+
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+
+        const day = String(today.getDate()).padStart(2, '0');
+
+        document.getElementById("expenseDate").value =
+            `${year}-${month}-${day}`;
+    }
+
+
+    // Character counter
+    const notes = document.getElementById("notes");
+
+    const characterCount =
+        document.getElementById("characterCount");
+
+    notes.addEventListener("input", function () {
+
+        characterCount.textContent =
+            notes.value.length;
+
+    });
+
+
+    // Prevent future dates
+    const dateInput =
+        document.getElementById("expenseDate");
+
+    const today =
+        new Date().toISOString().split("T")[0];
+
+    dateInput.max = today;
+
+</script>
+
+</body>
+
+</html>
