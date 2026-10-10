@@ -159,17 +159,14 @@
                 <div class="payment-grid">
 
                     <label class="payment-option">
-
                         <input type="radio"
                                name="paymentMethod"
                                value="CASH"
                                th:field="*{paymentMethod}">
-
                         <div class="payment-card">
-                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <i class="fa-solid fa-money-bill-wave payment-icon cash-icon"></i>
                             <span>Cash</span>
                         </div>
-
                     </label>
 
 
@@ -181,70 +178,60 @@
                                th:field="*{paymentMethod}">
 
                         <div class="payment-card">
-                            <i class="fa-solid fa-credit-card"></i>
+                            <i class="fa-solid fa-credit-card payment-icon credit-icon"></i>
                             <span>Credit Card</span>
                         </div>
-
                     </label>
 
 
                     <label class="payment-option">
-
                         <input type="radio"
                                name="paymentMethod"
                                value="DEBIT_CARD"
                                th:field="*{paymentMethod}">
 
                         <div class="payment-card">
-                            <i class="fa-regular fa-credit-card"></i>
+                            <i class="fa-regular fa-credit-card payment-icon debit-icon"></i>
                             <span>Debit Card</span>
                         </div>
-
                     </label>
 
 
                     <label class="payment-option">
-
                         <input type="radio"
                                name="paymentMethod"
                                value="UPI"
                                th:field="*{paymentMethod}">
-
                         <div class="payment-card">
-                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <i class="fa-solid fa-mobile-screen-button payment-icon upi-icon"></i>
                             <span>UPI</span>
                         </div>
-
                     </label>
 
 
                     <label class="payment-option">
-
                         <input type="radio"
                                name="paymentMethod"
                                value="BANK_TRANSFER"
                                th:field="*{paymentMethod}">
-
+                               
                         <div class="payment-card">
-                            <i class="fa-solid fa-building-columns"></i>
+                            <i class="fa-solid fa-building-columns payment-icon bank-icon"></i>
                             <span>Bank Transfer</span>
                         </div>
-
                     </label>
 
 
                     <label class="payment-option">
-
                         <input type="radio"
                                name="paymentMethod"
                                value="OTHER"
                                th:field="*{paymentMethod}">
 
                         <div class="payment-card">
-                            <i class="fa-solid fa-ellipsis"></i>
+                            <i class="fa-solid fa-ellipsis payment-icon other-icon"></i>
                             <span>Other</span>
                         </div>
-
                     </label>
 
                 </div>
