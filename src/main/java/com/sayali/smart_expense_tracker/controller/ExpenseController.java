@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.sayali.smart_expense_tracker.entity.Expense;
+import com.sayali.smart_expense_tracker.repository.ExpenseRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
 import com.sayali.smart_expense_tracker.service.ExpenseService;
 
@@ -23,6 +24,9 @@ public class ExpenseController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	ExpenseRepository expenseRepository;
 	
 	@GetMapping("/addExpense")
 	public String showAddExpenseForm(Model model, Authentication authentication) {
@@ -46,5 +50,14 @@ public class ExpenseController {
 			redirectAttributes.addFlashAttribute("errorMessage", redirectAttributes);
 		}
 		return "redirect:/expense/addExpense";	
+	}
+	
+	@GetMapping("/expense-list")
+	public String viewExpense(Model model, Authentication authentication, RedirectAttributes redirectAttributes)
+	{
+		String username = authentication.getName();
+		List<Expense> expenseList = expenseRepository.findByUserUsername(username);
+		model.addAttribute("expenseList", expenseList);
+		return "expense/expense-list";
 	}
 }

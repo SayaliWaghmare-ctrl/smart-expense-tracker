@@ -62,8 +62,7 @@ public class CategoryController {
 	public String categoryListForm(Model model, Authentication authentication) {
 
 		String username = authentication.getName();
-		List<Categories> categories = categoryRepository.findByUserUsername(username);	
-		
+		List<Categories> categories = categoryRepository.findByUserUsername(username);			
 		model.addAttribute("categories", categories);
 	    return "category/category-list";
 	}
