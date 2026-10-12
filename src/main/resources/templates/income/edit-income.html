@@ -20,17 +20,17 @@
         <div>
             <h1>
                 <i class="fa-solid fa-pen-to-square"></i>
-                Update Expense
+                Update Income
             </h1>
             <p>
-                Update the details of your expenses
+                Update the details of your income
             </p>
         </div>
         <a th:href="@{/income/incomeList}"
            class="back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
-            Back to Expense
+            Back to Income
         </a>
 
          <!-- Success Message -->
@@ -92,46 +92,33 @@
             <!-- Source -->
 
             <div class="form-group">
-
                 <label for="source">
                     Source
                 </label>
-
                 <div class="input-wrapper">
-
                     <i class="fa-solid fa-building-columns"></i>
-
                     <input type="text"
                            id="source"
                            th:field="*{source}"
                            placeholder="e.g. Salary, Freelance, Bonus"
                            required>
-
                 </div>
-
             </div>
 
 
             <!-- Category -->
-
             <div class="form-group">
-
                 <label for="category">
                     Category
                 </label>
-
                 <div class="input-wrapper">
-
                     <i class="fa-solid fa-layer-group"></i>
-
                     <select id="category"
                             th:field="*{category}"
                             required>
-
                         <option value="">
                             Select category
                         </option>
-
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}"
                                 th:text="${category.name}">
@@ -142,17 +129,12 @@
 
 
             <!-- Received Date -->
-
             <div class="form-group">
-
                 <label for="date">
                     Received Date
                 </label>
-
                 <div class="input-wrapper">
-
                     <i class="fa-solid fa-calendar-days"></i>
-
                     <input type="date"
                            id="date"
                            th:field="*{date}"

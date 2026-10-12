@@ -62,7 +62,7 @@
     <!-- Form Card -->
     <div class="category-form-card">
 
-        <form th:action="@{/income/updateIncome}"  th:object="${expense}"  method="post">
+        <form th:action="@{/expense/updateExpense}"  th:object="${expense}"  method="post">
 
             <!-- Hidden ID -->
             <input type="hidden"  th:field="*{id}">
@@ -74,9 +74,9 @@
                     Amount
                     <span>*</span>
                 </label>
-                <div class="amount-wrapper">
+                <div class="input-wrapper">
                     <span class="currency">₹</span>
-                    <input type="number"
+                    <input type="number"  
                            id="amount"
                            th:field="*{amount}"
                            placeholder="0.00"
@@ -97,13 +97,12 @@
                     Category
                     <span>*</span>
                 </label>
-                <div class="select-wrapper">
-                    <i class="fa-solid fa-tags"></i>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-layer-group"></i>
                     <select id="category"
                             th:field="*{category}"
                             required>
                         <option value="">Select expense category</option>
-
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}"
                                 th:text="${category.name}">
@@ -112,6 +111,28 @@
                     <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                 </div>
             </div>
+            
+            
+         
+                <!-- Payment Method -->
+                <div class="form-group">
+                  <label for="paymentMethod">Payment Method</label>
+                      <div class="input-wrapper">
+                        <i class="fa-solid fa-credit-card"></i>
+                           <select id="paymentMethod"
+                             th:field="*{paymentMethod}"
+                             required>
+                                <option value="" disabled>
+                                   Select Payment Method
+                                </option>
+                                <option th:each="method : ${paymentMethods}"
+                                   th:value="${method}"
+                                   th:text="${#strings.replace(method.name(), '_', ' ')}">
+                                </option>
+                         </select>
+                      </div>
+                </div>
+
 
 
             <!-- Date -->

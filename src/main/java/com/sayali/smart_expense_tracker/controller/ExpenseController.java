@@ -16,6 +16,7 @@ import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Expense;
 import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.entity.PaymentMethod;
 import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.repository.ExpenseRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
@@ -88,12 +89,25 @@ public class ExpenseController {
 	{
 		String username = authentication.getName();
 		Expense expense = expenseService.getExpenseByID(id);
-        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.INCOME);	
+        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.EXPENSE);	
 		model.addAttribute("categories", categories);
 		model.addAttribute("expense", expense);
+		model.addAttribute("paymentMethods", PaymentMethod.values());
 		
 		return "expense/edit-expense";		
 	}
 	
-	
+	@PostMapping("/updateExpense")
+	public String updateExpenses(@ModelAttribute("expense") Expense expense, RedirectAttributes redirectAttributes)
+	{
+		try {
+		   expenseService.updateExpense(expense.getId(), expense);
+		   redirectAttributes.addFlashAttribute("successMessage", "Expenses updated successfully !");
+	      
+	   }catch(Exception e) {
+		redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+	  }
+		
+		return "redirect:/expense/expense-list";		
+	}
 }

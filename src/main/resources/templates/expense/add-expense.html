@@ -89,7 +89,7 @@
             <div class="form-section">
 
                 <label for="category">
-                    Category
+                    Source
                     <span>*</span>
                 </label>
 
@@ -101,7 +101,7 @@
                             th:field="*{category}"
                             required>
 
-                        <option value="">Select expense category</option>
+                        <option value="">Select source</option>
 
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}"

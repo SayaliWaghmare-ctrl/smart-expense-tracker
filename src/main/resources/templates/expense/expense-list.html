@@ -70,6 +70,7 @@
                  <th>Expense Date</th>
                 <th>Description</th>
                 <th>Payment Method</th>
+                <th>Source</th>
                 <th>Activity</th>
             </tr>
             </thead>
@@ -99,7 +100,11 @@
                  <td class="source"
                     th:text="${expense.paymentMethod}">                  
                 </td>
-
+                
+                <td class="source"
+                    th:text="${expense.category}">                  
+                </td>
+                
                 <td>
                     <div class="action-buttons">
 

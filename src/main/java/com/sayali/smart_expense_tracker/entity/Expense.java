@@ -2,6 +2,9 @@ package com.sayali.smart_expense_tracker.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,7 +35,11 @@ public class Expense {
 	    @JoinColumn(name = "category_id", nullable = false)
 	    private Categories category;
 
+	    @Column(name = "source", nullable = false)
+		private String source;
+	    
 	    @Column(name = "expense_date", nullable = false)
+	    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	    private LocalDate expenseDate;
 
 	    @Enumerated(EnumType.STRING)

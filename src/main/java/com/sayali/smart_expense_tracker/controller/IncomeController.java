@@ -112,7 +112,7 @@ public class IncomeController {
 		
 		}catch(Exception e)
 		{
-			redirectAttributes.addFlashAttribute("successMessage", e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
 		return "income/edit-income";		
 	}
@@ -127,7 +127,7 @@ public class IncomeController {
 		      
 		}catch(Exception e) {
 			
-			redirectAttributes.addFlashAttribute("successMessage", e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
 		return "redirect:/income/incomeList";
 	}
