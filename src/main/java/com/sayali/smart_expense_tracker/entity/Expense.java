@@ -128,5 +128,14 @@ public class Expense {
 		public void setUpdatedAt(LocalDate updatedAt) {
 			this.updatedAt = updatedAt;
 		}
+
+		public String getSource() {
+			return source;
+		}
+
+		public void setSource(String source) {
+			this.source = source;
+		}
 	
+		
 }
