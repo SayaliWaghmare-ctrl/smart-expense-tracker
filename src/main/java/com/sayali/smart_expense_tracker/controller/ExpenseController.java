@@ -7,10 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sayali.smart_expense_tracker.entity.Categories;
+import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Expense;
+import com.sayali.smart_expense_tracker.entity.Income;
+import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.repository.ExpenseRepository;
 import com.sayali.smart_expense_tracker.service.CategoryService;
 import com.sayali.smart_expense_tracker.service.ExpenseService;
@@ -24,6 +30,9 @@ public class ExpenseController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	@Autowired
 	ExpenseRepository expenseRepository;
@@ -60,4 +69,31 @@ public class ExpenseController {
 		model.addAttribute("expenseList", expenseList);
 		return "expense/expense-list";
 	}
+	
+	@PostMapping("/delete/{id}")
+	public String deleteExpense(@PathVariable Long id, RedirectAttributes redirectAttributes)
+	{
+		try {			
+			  expenseService.deleteExpense(id);
+			  redirectAttributes.addFlashAttribute("successMessage", "Expense deleted successfully !");
+			
+		}catch(Exception e) {			
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+		}		
+		return "redirect:/expense/expense-list";		
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String updateExpenseForm(@PathVariable Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes)
+	{
+		String username = authentication.getName();
+		Expense expense = expenseService.getExpenseByID(id);
+        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.INCOME);	
+		model.addAttribute("categories", categories);
+		model.addAttribute("expense", expense);
+		
+		return "expense/edit-expense";		
+	}
+	
+	
 }

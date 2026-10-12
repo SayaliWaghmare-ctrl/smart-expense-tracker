@@ -118,33 +118,25 @@
 
             <!-- Date -->
             <div class="form-section">
-
                 <div class="label-row">
-
                     <label for="expenseDate">
                         Expense Date
                         <span>*</span>
                     </label>
-
                     <button type="button"
                             class="today-btn"
                             onclick="setToday()">
                         Today
                     </button>
-
                 </div>
-
                 <div class="input-icon">
-
                     <i class="fa-regular fa-calendar"></i>
 
                     <input type="date"
                            id="expenseDate"
                            th:field="*{expenseDate}"
                            required>
-
                 </div>
-
             </div>
 
 
@@ -264,27 +256,18 @@
 
             <!-- Buttons -->
             <div class="form-actions">
-
                 <a th:href="@{/home}"
                    class="cancel-btn">
                     Cancel
                 </a>
-
                 <button type="submit"
                         class="save-btn">
-
                     <i class="fa-solid fa-circle-check"></i>
-
                     Save Expense
-
                 </button>
-
             </div>
-
         </form>
-
     </div>
-
 </div>
 
 
@@ -332,5 +315,4 @@
 </script>
 
 </body>
-
 </html>

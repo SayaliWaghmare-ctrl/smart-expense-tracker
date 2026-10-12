@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-layer-group"></i>
                 Expense
             </h1>
-            <p>Manage your expense and income </p>
+            <p>Manage your expenses </p>
         </div>
         <a th:href="@{/expense/addExpense}" class="add-category-btn">
             <i class="fa-solid fa-plus"></i>
@@ -53,7 +53,7 @@
             <i class="fa-solid fa-magnifying-glass"></i>
 
             <input type="text" id="categorySearch"
-                   placeholder="Search income...">
+                   placeholder="Search expense...">
         </div>
     </div>
 
@@ -70,6 +70,7 @@
                  <th>Expense Date</th>
                 <th>Description</th>
                 <th>Payment Method</th>
+                <th>Activity</th>
             </tr>
             </thead>
 
@@ -99,17 +100,17 @@
                     th:text="${expense.paymentMethod}">                  
                 </td>
 
-               <!--  <td>
+                <td>
                     <div class="action-buttons">
 
-                        Edit
+                       
                         <a th:href="@{/expense/edit/{id}(id=${expense.id})}"
                            class="edit-btn"
                            title="Edit Income">
                             <i class="fa-solid fa-pen"></i>
                         </a>
 
-                        Delete
+                        
                         <form th:action="@{/expense/delete/{id}(id=${expense.id})}"
                         
                               method="post"
@@ -124,13 +125,12 @@
                             </button>
                         </form>
                     </div>
-                </td> -->
+                </td>
             </tr>
 
 
             <!-- Empty State -->
             <tr th:if="${#lists.isEmpty(expenseList)}">
-
                 <td colspan="5">
                     <div class="empty-state">
                         <i class="fa-solid fa-folder-open"></i>

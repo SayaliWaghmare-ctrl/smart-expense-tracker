@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Expense</title>
+
+    <!-- Font Awesome -->
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Category CSS -->
+<link rel="stylesheet" th:href="@{/css/edit-expense.css}">
+</head>
+<body>
+
+<div class="category-form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+
+        <div>
+            <h1>
+                <i class="fa-solid fa-pen-to-square"></i>
+                Update Expenses
+            </h1>
+
+            <p>
+                Update the details of your expenses
+            </p>
+        </div>
+
+        <a th:href="@{/expense/expense-list}"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Expenses
+        </a>
+
+         <!-- Success Message -->
+                <div th:if="${successMessage}"
+                     class="alert success-alert">
+                    <span>✓</span>
+                    <span th:text="${successMessage}">
+                        Expenses created successfully!
+                    </span>
+                </div>
+
+
+                <!-- Error Message -->
+                <div th:if="${errorMessage}"
+                     class="alert error-alert">
+                    <span>!</span>
+                    <span th:text="${errorMessage}">
+                        Something went wrong.
+                    </span>
+                </div>                
+    </div>
+
+
+    <!-- Form Card -->
+    <div class="category-form-card">
+
+        <form th:action="@{/income/updateIncome}"  th:object="${expense}"  method="post">
+
+            <!-- Hidden ID -->
+            <input type="hidden"  th:field="*{id}">
+
+
+            <!-- Amount -->
+            <div class="form-group">
+                <label for="amount">
+                    Amount
+                    <span>*</span>
+                </label>
+                <div class="amount-wrapper">
+                    <span class="currency">₹</span>
+                    <input type="number"
+                           id="amount"
+                           th:field="*{amount}"
+                           placeholder="0.00"
+                           min="0.01"
+                           step="0.01"
+                           required>
+
+                </div>
+                <small class="field-hint">
+                    Enter the amount you spent.
+                </small>
+            </div>
+
+
+        <!-- Category -->
+            <div class="form-group">
+                <label for="category">
+                    Category
+                    <span>*</span>
+                </label>
+                <div class="select-wrapper">
+                    <i class="fa-solid fa-tags"></i>
+                    <select id="category"
+                            th:field="*{category}"
+                            required>
+                        <option value="">Select expense category</option>
+
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                </div>
+            </div>
+
+
+            <!-- Date -->
+            <div class="form-group">
+                <label for="expenseDate">
+                    Expense Date
+                </label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <input type="date"
+                           id="expenseDate"
+                           th:field="*{expenseDate}"
+                           required>
+                </div>
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="notes">
+                    Notes
+                </label>
+                <div class="input-wrapper textarea-wrapper">
+                    <i class="fa-solid fa-align-left"></i>
+                    <textarea id="notes"
+                              th:field="*{notes}"
+                              placeholder="Enter additional details (optional)"
+                              rows="4">
+                    </textarea>
+                </div>
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+                <a th:href="@{/home}"
+                   class="cancel-btn">
+
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="update-btn">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Update Expense
+                </button>
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

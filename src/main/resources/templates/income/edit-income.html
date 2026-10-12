@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Update Income</title>
 
-    <!-- Font Awesome -->
-<link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Category CSS -->
+<!-- Category CSS -->
 <link rel="stylesheet" th:href="@{/css/edit-income.css}">
 </head>
 <body>
@@ -19,23 +17,20 @@
 
     <!-- Header -->
     <div class="form-header">
-
         <div>
             <h1>
                 <i class="fa-solid fa-pen-to-square"></i>
-                Update Income
+                Update Expense
             </h1>
-
             <p>
-                Update the details of your income
+                Update the details of your expenses
             </p>
         </div>
-
         <a th:href="@{/income/incomeList}"
            class="back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
-            Back to Income
+            Back to Expense
         </a>
 
          <!-- Success Message -->
@@ -47,9 +42,7 @@
                     <span th:text="${successMessage}">
                         Income created successfully!
                     </span>
-
                 </div>
-
 
                 <!-- Error Message -->
                 <div th:if="${errorMessage}"
@@ -60,7 +53,6 @@
                     <span th:text="${errorMessage}">
                         Something went wrong.
                     </span>
-
                 </div>                
     </div>
 
@@ -74,7 +66,7 @@
             <input type="hidden"  th:field="*{id}">
 
 
-                        <!-- Amount -->
+               <!-- Amount -->
 
             <div class="form-group">
 
