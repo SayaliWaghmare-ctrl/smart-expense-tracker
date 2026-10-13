@@ -193,6 +193,15 @@
     </div>
 </div>
 
+<script>
+
+   // Prevent future dates
+     const dateInput = document.getElementById("date");
+     const today = new Date().toISOString().split("T")[0];
+     dateInput.max = today;
+
+</script>
+
 </body>
 
 </html>

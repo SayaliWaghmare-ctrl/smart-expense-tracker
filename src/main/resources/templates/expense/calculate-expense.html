@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Expense | Smart Expense Tracker</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/calculate-expense.css}">
+</head>
+
+<body>
+
+<div class="expense-container">
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="header-icon">
+            <i class="fa-solid fa-chart-pie"></i>
+        </div>
+
+        <div class="header-content">
+            <h1>Calculate Expense</h1>
+            <p>Understand where your money goes</p>
+        </div>
+
+        <div class="header-wallet">
+            <i class="fa-solid fa-wallet"></i>
+        </div>
+    </header>
+
+
+    <!-- Summary Cards -->
+    <section class="summary-grid">
+
+        <!-- Total Expense -->
+        <div class="summary-card total-card">
+            <div class="card-top">
+                <span>Total Expenses</span>
+                <div class="card-icon red-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+            </div>
+
+            <h2>
+                ₹ <span th:text="${totalExpense != null ? #numbers.formatDecimal(totalExpense, 1, 'COMMA', 2, 'POINT') : '0.00'}">24,500.00</span>
+            </h2>
+
+            <p>For the selected period</p>
+        </div>
+
+
+        <!-- Expense Count -->
+        <div class="summary-card">
+            <div class="card-top">
+                <span>Number of Expenses</span>
+                <div class="card-icon blue-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+            </div>
+
+            <h2 th:text="${expenseCount != null ? expenseCount : 0}">18</h2>
+            <p>Transactions recorded</p>
+        </div>
+
+
+        <!-- Average Expense -->
+        <div class="summary-card">
+            <div class="card-top">
+                <span>Average Expense</span>
+                <div class="card-icon orange-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+            </div>
+
+            <h2>
+                ₹ <span th:text="${averageExpense != null ? #numbers.formatDecimal(averageExpense, 1, 'COMMA', 2, 'POINT') : '0.00'}">1,361.11</span>
+            </h2>
+            <p>Average per transaction</p>
+        </div>
+
+
+        <!-- Highest Expense -->
+        <div class="summary-card">
+            <div class="card-top">
+                <span>Highest Expense</span>
+                <div class="card-icon purple-icon">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+            </div>
+
+            <h2>
+                ₹ <span th:text="${highestExpense != null ? #numbers.formatDecimal(highestExpense, 1, 'COMMA', 2, 'POINT') : '0.00'}">8,000.00</span>
+            </h2>
+            <p>Largest transaction</p>
+        </div>
+
+
+        <!-- Lowest Expense -->
+        <div class="summary-card">
+            <div class="card-top">
+                <span>Lowest Expense</span>
+                <div class="card-icon green-icon">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                </div>
+            </div>
+
+            <h2>
+                ₹ <span th:text="${lowestExpense != null ? #numbers.formatDecimal(lowestExpense, 1, 'COMMA', 2, 'POINT') : '0.00'}">100.00</span>
+            </h2>
+            <p>Smallest transaction</p>
+        </div>
+
+    </section>
+
+
+    <!-- Date Filter Section -->
+    <section class="content-card date-filter-card">
+
+        <div class="section-heading">
+            <div class="section-icon red-icon">
+                <i class="fa-regular fa-calendar-days"></i>
+            </div>
+
+            <div>
+                <h2>Calculate by Date</h2>
+                <p>Select a date range to calculate your expenses</p>
+            </div>
+        </div>
+
+
+        <form th:action="@{/expense/calculateByDate}"
+              method="get"
+              class="date-filter-form">
+
+            <div class="form-group">
+                <label for="fromDate">From Date</label>
+
+                <div class="date-input-wrapper">
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <input type="date"
+                           id="fromDate"
+                           name="fromDate"
+                           th:value="${fromDate}"
+                           required>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="toDate">To Date</label>
+
+                <div class="date-input-wrapper">
+                    <i class="fa-regular fa-calendar-check"></i>
+
+                    <input type="date"
+                           id="toDate"
+                           name="toDate"
+                           th:value="${toDate}"
+                           required>
+                </div>
+            </div>
+
+
+            <div class="form-action">
+                <button type="submit" class="calculate-btn">
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculate Expenses
+                </button>
+            </div>
+
+        </form>
+
+        <p class="date-hint">
+            <i class="fa-solid fa-circle-info"></i>
+            Choose both dates to view the expense summary for that period.
+        </p>
+
+    </section>
+
+
+    <!-- Expense by Category -->
+    <section class="content-card category-card">
+
+        <div class="section-heading">
+            <div class="section-icon purple-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <div>
+                <h2>Expense by Category</h2>
+                <p>See which categories account for your spending</p>
+            </div>
+        </div>
+
+
+        <!-- Category data comes from the controller -->
+        <div class="category-list"
+             th:if="${categorySummaries != null and !categorySummaries.isEmpty()}">
+
+            <div class="category-item"
+                 th:each="category : ${categorySummaries}">
+
+                <div class="category-details">
+                    <span class="category-name"
+                          th:text="${category.categoryName}">
+                        Food &amp; Groceries
+                    </span>
+
+                    <span class="category-amount">
+                        ₹ <span th:text="${#numbers.formatDecimal(category.totalAmount, 1, 'COMMA', 2, 'POINT')}">8,000.00</span>
+                    </span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill"
+                         th:style="'width:' + ${category.percentage} + '%;'">
+                    </div>
+                </div>
+
+                <div class="category-percentage"
+                     th:text="${#numbers.formatDecimal(category.percentage, 1, 1)} + '%'">
+                    33.0%
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Empty state -->
+        <div class="empty-state"
+             th:if="${categorySummaries == null or categorySummaries.isEmpty()}">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-chart-column"></i>
+            </div>
+
+            <h3>No Expense Summary Yet</h3>
+
+            <p>
+                Add expenses to see how your spending is distributed
+                across categories.
+            </p>
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- Basic date validation -->
+<script>
+    const fromDate = document.getElementById("fromDate");
+    const toDate = document.getElementById("toDate");
+
+    fromDate.addEventListener("change", function () {
+        toDate.min = this.value;
+
+        if (toDate.value && toDate.value < this.value) {
+            toDate.value = "";
+        }
+    });
+
+    toDate.addEventListener("change", function () {
+        fromDate.max = this.value;
+
+        if (fromDate.value && fromDate.value > this.value) {
+            fromDate.value = "";
+        }
+    });
+</script>
+
+</body>
+</html>

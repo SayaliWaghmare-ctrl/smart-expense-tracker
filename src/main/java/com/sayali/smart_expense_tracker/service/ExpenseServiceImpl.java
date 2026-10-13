@@ -54,6 +54,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 		existExpense.setCategory(expense.getCategory());
 		existExpense.setPaymentMethod(expense.getPaymentMethod());
 		existExpense.setExpenseDate(expense.getExpenseDate());
+		existExpense.setSource(expense.getSource());
 		existExpense.setUpdatedAt(LocalDate.now());
 		
 		return expenseRepository.save(existExpense);

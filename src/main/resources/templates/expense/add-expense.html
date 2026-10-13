@@ -312,11 +312,9 @@
 
 
     // Prevent future dates
-    const dateInput =
-        document.getElementById("expenseDate");
+    const dateInput = document.getElementById("expenseDate");
 
-    const today =
-        new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split("T")[0];
 
     dateInput.max = today;
 

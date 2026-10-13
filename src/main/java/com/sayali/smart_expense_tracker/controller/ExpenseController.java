@@ -110,4 +110,12 @@ public class ExpenseController {
 		
 		return "redirect:/expense/expense-list";		
 	}
+	
+	@GetMapping("/calculateExpenses")
+	public String calculateExpenseForm(Model model)
+	{
+		return "expense/calculate-expense";
+		
+	}
+	
 }
