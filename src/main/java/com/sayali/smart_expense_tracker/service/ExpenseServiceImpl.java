@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,21 @@ public class ExpenseServiceImpl implements ExpenseService{
 		return expenseRepository.save(existExpense);
 	}
 
+	@Override
+	public BigDecimal calculateTotalExpense(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.calculateTotalIncome(username, fromDate, toDate);
+	}
+
+	@Override
+	public long countExpense(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.countExpenses(username, fromDate, toDate);
+	}
+
+	@Override
+	public BigDecimal calculateAverageExpense(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.calculateAverageExpense(username, fromDate, toDate);
+	}
 }

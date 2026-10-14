@@ -94,7 +94,6 @@
             <i class="fa-solid fa-circle-info"></i>
             Choose both dates to view the expense summary for that period.
         </p>
-
     </section>
     
 
@@ -111,7 +110,7 @@
             </div>
 
             <h2>
-                ₹ <span th:text="${totalExpense != null ? #numbers.formatDecimal(totalExpense, 1, 'COMMA', 2, 'POINT') : '0.00'}">24,500.00</span>
+                ₹ <span th:text="${totalExpenses != null ? #numbers.formatDecimal(totalExpenses, 1, 'COMMA', 2, 'POINT') : '0.00'}">24,500.00</span>
             </h2>
 
             <p>For the selected period</p>
@@ -135,7 +134,7 @@
         <!-- Average Expense -->
         <div class="summary-card">
             <div class="card-top">
-                <span>Average Expense</span>
+                <span>Average Expenses</span>
                 <div class="card-icon orange-icon">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
@@ -151,7 +150,7 @@
         <!-- Highest Expense -->
         <div class="summary-card">
             <div class="card-top">
-                <span>Highest Expense</span>
+                <span>Highest Expenses</span>
                 <div class="card-icon purple-icon">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                 </div>
@@ -167,7 +166,7 @@
         <!-- Lowest Expense -->
         <div class="summary-card">
             <div class="card-top">
-                <span>Lowest Expense</span>
+                <span>Lowest Expenses</span>
                 <div class="card-icon green-icon">
                     <i class="fa-solid fa-arrow-trend-down"></i>
                 </div>
@@ -178,12 +177,8 @@
             </h2>
             <p>Smallest transaction</p>
         </div>
-
     </section>
-
-
-
-
+    
 
     <!-- Expense by Category -->
     <section class="content-card category-card">
@@ -194,8 +189,8 @@
             </div>
 
             <div>
-                <h2>Expense by Category</h2>
-                <p>See which categories account for your spending</p>
+                <h2>Expense by Source</h2>
+                <p>Breakdown of your expenses by source.</p>
             </div>
         </div>
 
@@ -228,30 +223,23 @@
                      th:text="${#numbers.formatDecimal(category.percentage, 1, 1)} + '%'">
                     33.0%
                 </div>
-
             </div>
-
         </div>
 
 
         <!-- Empty state -->
         <div class="empty-state"
              th:if="${categorySummaries == null or categorySummaries.isEmpty()}">
-
             <div class="empty-icon">
                 <i class="fa-solid fa-chart-column"></i>
             </div>
-
             <h3>No Expense Summary Yet</h3>
-
             <p>
                 Add expenses to see how your spending is distributed
                 across categories.
             </p>
         </div>
-
     </section>
-
 </div>
 
 

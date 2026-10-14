@@ -1,5 +1,7 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sayali.smart_expense_tracker.entity.Categories;
@@ -114,8 +117,23 @@ public class ExpenseController {
 	@GetMapping("/calculateExpenses")
 	public String calculateExpenseForm(Model model)
 	{
-		return "expense/calculate-expense";
-		
+		return "expense/calculate-expense";	
 	}
 	
+	@GetMapping("/calculateByDate")
+	public String calculateExpensesByDate(Model model, Authentication authentication, 
+			                              @RequestParam("fromDate") LocalDate fromDate,
+			                               @RequestParam("toDate") LocalDate toDate)
+	{
+		String username = authentication.getName();
+		BigDecimal totalExpense = expenseService.calculateTotalExpense(username, fromDate, toDate);
+		long expenseCount = expenseService.countExpense(username, fromDate, toDate);
+		BigDecimal averageExpense = expenseService.calculateAverageExpense(username, fromDate, toDate);
+		
+		model.addAttribute("averageExpense", averageExpense);
+		model.addAttribute("expenseCount", expenseCount);
+		model.addAttribute("totalExpenses", totalExpense);
+		
+		return "expense/calculate-expense";
+	}
 }

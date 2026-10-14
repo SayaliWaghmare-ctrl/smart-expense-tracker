@@ -184,6 +184,5 @@ public class IncomeController {
 		 model.addAttribute("toDate", toDate);
 		    
 		return "income/calculate-income";
-		
 	}
 }
