@@ -295,24 +295,15 @@ margin-bottom: 25px;
 }
 
 .summary-card {
+	
 background: #ffffff;
-
-
 border-radius: 12px;
-
 padding: 22px;
-
 display: flex;
-
 align-items: center;
-
 gap: 16px;
-
 box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-
 transition: transform 0.2s;
-
-
 }
 
 .summary-card:hover {
@@ -326,252 +317,164 @@ grid-column: span 2;
 }
 
 .summary-icon {
+	
 width: 48px;
 height: 48px;
-
-
 display: flex;
-
 align-items: center;
 justify-content: center;
-
 border-radius: 11px;
-
 background: #e8f5e9;
 color: #2e7d32;
-
 font-size: 20px;
-
 flex-shrink: 0;
-
-
 }
 
 .summary-label {
+	
 display: block;
-
-
 font-size: 13px;
-
 color: #888;
-
 margin-bottom: 6px;
-
-
 }
 
 .summary-content h3 {
+	
 font-size: 25px;
-
-
 color: #333;
-
 font-weight: 700;
-
-
 }
 
 /* Source Card */
 
 .source-card {
+	
 background: #ffffff;
-
-
 border-radius: 14px;
-
 box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-
 overflow: hidden;
-
-
 }
 
 .source-header {
+	
 padding: 22px 25px;
-
-
 border-bottom: 1px solid #eee;
-
-
 }
 
 .source-title {
+	
 display: flex;
-
-
 align-items: center;
-
 gap: 14px;
-
-
 }
 
 .source-icon {
+	
 width: 44px;
 height: 44px;
-
-
 display: flex;
-
 align-items: center;
 justify-content: center;
-
 border-radius: 10px;
-
 background: #fff3e0;
 color: #ef6c00;
-
-
 }
 
 .source-title h2 {
+	
 font-size: 18px;
-
-
 margin-bottom: 4px;
-
-
 }
 
 .source-title p {
+	
 font-size: 13px;
-
-
 color: #888;
-
-
 }
 
 /* Source List */
 
 .source-list {
+	
 padding: 10px 25px 20px;
 }
 
 .source-row {
+	
 display: flex;
-
-
 align-items: center;
-
 justify-content: space-between;
-
 padding: 16px 0;
-
 border-bottom: 1px solid #f0f0f0;
-
-
 }
 
 .source-name {
+	
 display: flex;
-
-
 align-items: center;
-
 gap: 12px;
-
 font-size: 14px;
-
-
 }
 
 .source-small-icon {
+	
 width: 36px;
 height: 36px;
-
-
 display: flex;
-
 align-items: center;
 justify-content: center;
-
 border-radius: 8px;
-
 background: #f5f5f5;
-
 color: #666;
-
-
 }
 
 .source-row strong {
+	
 font-size: 15px;
-
-
 color: #333;
-
-
 }
 
 /* Total Source */
 
 .source-total {
+	
 display: flex;
-
-
 align-items: center;
-
 justify-content: space-between;
-
 padding: 18px 0 5px;
-
 font-size: 16px;
-
 font-weight: 700;
-
-
 }
 
 .source-total strong {
+	
 color: #2e7d32;
-
-
 font-size: 18px;
-
-
 }
 
 /* Bottom Buttons */
 
 .bottom-actions {
+	
 display: flex;
-
-
 justify-content: flex-end;
-
 margin-top: 25px;
-
-
 }
 
 .cancel-btn {
+	
 display: inline-flex;
-
-
 align-items: center;
-
 gap: 8px;
-
 padding: 11px 18px;
-
 border: 1px solid #ddd;
-
 border-radius: 8px;
-
 background: #ffffff;
-
 color: #555;
-
 text-decoration: none;
-
 font-size: 14px;
-
 font-weight: 600;
-
 transition: 0.2s;
-
-
 }
 
 .cancel-btn:hover {

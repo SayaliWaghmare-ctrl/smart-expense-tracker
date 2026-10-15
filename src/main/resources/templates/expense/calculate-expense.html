@@ -31,6 +31,12 @@
        <!--  <div class="header-wallet">
             <i class="fa-solid fa-wallet"></i>
         </div> -->
+        
+        <a th:href="@{/expense/expense-list}"
+           class="back-list-btn">
+             <i class="fa-solid fa-list"></i>
+           Expense List
+        </a>
     </header>
 
           <!-- Date Filter Section -->
@@ -180,7 +186,7 @@
     </section>
     
 
-    <!-- Expense by Category -->
+    <!-- Expense by Source -->
     <section class="content-card category-card">
 
         <div class="section-heading">
@@ -202,18 +208,34 @@
             <div class="category-item"
                  th:each="category : ${sourceSummaries}">
 
-                <div class="category-details">
+                   <div class="source-name">
+                    <div class="source-small-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <span th:text="${category.source}">                    
+                    </span>
+                </div>
+
+                <strong>
+                    ₹<span th:text="${category.totalAmount}">
+                    0
+                    </span>
+                </strong>
+
+                <!-- <div class="category-details">
                     <span class="category-name"
                           th:text="${category.source}">
                         Food &amp; Groceries
                     </span>
-
+               </div>
+               
+                  <strong>
                     <span class="category-amount">
                         ₹ <span th:text="${#numbers.formatDecimal(category.totalAmount, 1, 'COMMA', 2, 'POINT')}">8,000.00</span>
                     </span>
-                </div>
+                  </strong>   -->
 
-                <div class="progress-track">
+               <!--  <div class="progress-track">
                     <div class="progress-fill"
                          th:style="'width:' + ${category.percentage} + '%;'">
                     </div>
@@ -222,7 +244,22 @@
                 <div class="category-percentage"
                      th:text="${#numbers.formatDecimal(category.percentage, 1, 1)} + '%'">
                     33.0%
-                </div>
+                </div> -->
+                
+            </div>
+            
+                  <!-- Total -->
+            <div class="source-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                     ₹<span th:text="${totalExpenses ?: 0}">
+                     0
+                   </span>  
+                </strong>
             </div>
         </div>
 
@@ -240,7 +277,17 @@
             </p>
         </div>
     </section>
-</div>
+    
+      <!-- Bottom Actions -->
+
+        <div class="bottom-actions">
+          <a th:href="@{/home}"
+             class="cancel-btn">
+             <i class="fa-solid fa-arrow-left"></i>
+             Cancel
+         </a>
+       </div>
+  </div>
 
 
 <!-- Basic date validation -->
