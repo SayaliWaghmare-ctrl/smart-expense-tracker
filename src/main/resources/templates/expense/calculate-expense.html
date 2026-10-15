@@ -189,22 +189,22 @@
             </div>
 
             <div>
-                <h2>Expense by Source</h2>
+                <h2>Expenses by Source</h2>
                 <p>Breakdown of your expenses by source.</p>
             </div>
         </div>
 
 
-        <!-- Category data comes from the controller -->
+        <!-- Source data comes from the controller -->
         <div class="category-list"
-             th:if="${categorySummaries != null and !categorySummaries.isEmpty()}">
+             th:if="${sourceSummaries != null and !sourceSummaries.isEmpty()}">
 
             <div class="category-item"
-                 th:each="category : ${categorySummaries}">
+                 th:each="category : ${sourceSummaries}">
 
                 <div class="category-details">
                     <span class="category-name"
-                          th:text="${category.categoryName}">
+                          th:text="${category.source}">
                         Food &amp; Groceries
                     </span>
 
@@ -229,7 +229,7 @@
 
         <!-- Empty state -->
         <div class="empty-state"
-             th:if="${categorySummaries == null or categorySummaries.isEmpty()}">
+             th:if="${sourceSummaries == null or sourceSummaries.isEmpty()}">
             <div class="empty-icon">
                 <i class="fa-solid fa-chart-column"></i>
             </div>

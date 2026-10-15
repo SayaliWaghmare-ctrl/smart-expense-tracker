@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.Categories;
 import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.entity.Expense;
+import com.sayali.smart_expense_tracker.entity.ExpenseSourceSummary;
 import com.sayali.smart_expense_tracker.entity.Income;
 import com.sayali.smart_expense_tracker.entity.PaymentMethod;
 import com.sayali.smart_expense_tracker.repository.CategoryRepository;
@@ -123,13 +124,19 @@ public class ExpenseController {
 	@GetMapping("/calculateByDate")
 	public String calculateExpensesByDate(Model model, Authentication authentication, 
 			                              @RequestParam("fromDate") LocalDate fromDate,
-			                               @RequestParam("toDate") LocalDate toDate)
+			                              @RequestParam("toDate") LocalDate toDate)
 	{
 		String username = authentication.getName();
 		BigDecimal totalExpense = expenseService.calculateTotalExpense(username, fromDate, toDate);
 		long expenseCount = expenseService.countExpense(username, fromDate, toDate);
 		BigDecimal averageExpense = expenseService.calculateAverageExpense(username, fromDate, toDate);
+		BigDecimal highestExpense = expenseService.calculateHighestExpense(username, fromDate, toDate);
+		BigDecimal lowestExpense = expenseService.calculateLowestExpense(username, fromDate, toDate);
+		List<ExpenseSourceSummary> sourceSummaries = expenseService.calculateExxpenseBySource(username, fromDate, toDate);
 		
+		model.addAttribute("sourceSummaries", sourceSummaries);
+		model.addAttribute("lowestExpense", lowestExpense);
+		model.addAttribute("highestExpense", highestExpense);
 		model.addAttribute("averageExpense", averageExpense);
 		model.addAttribute("expenseCount", expenseCount);
 		model.addAttribute("totalExpenses", totalExpense);

@@ -2,8 +2,10 @@ package com.sayali.smart_expense_tracker.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.sayali.smart_expense_tracker.entity.Expense;
+import com.sayali.smart_expense_tracker.entity.ExpenseSourceSummary;
 
 public interface ExpenseService {
 
@@ -20,4 +22,10 @@ public interface ExpenseService {
 	public long countExpense(String username, LocalDate fromDate, LocalDate toDate);
 	
 	public BigDecimal calculateAverageExpense(String username, LocalDate fromDate, LocalDate toDate);
+	
+	public BigDecimal calculateHighestExpense(String username, LocalDate fromDate, LocalDate toDate);
+	
+	public BigDecimal calculateLowestExpense(String username, LocalDate fromDate, LocalDate toDate);
+	
+	public List<ExpenseSourceSummary> calculateExxpenseBySource(String username, LocalDate fromDate, LocalDate toDate);
 }

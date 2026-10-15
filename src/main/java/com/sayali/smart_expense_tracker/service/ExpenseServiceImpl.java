@@ -2,10 +2,12 @@ package com.sayali.smart_expense_tracker.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sayali.smart_expense_tracker.entity.Expense;
+import com.sayali.smart_expense_tracker.entity.ExpenseSourceSummary;
 import com.sayali.smart_expense_tracker.entity.User;
 import com.sayali.smart_expense_tracker.repository.ExpenseRepository;
 import com.sayali.smart_expense_tracker.repository.UserRepository;
@@ -64,7 +66,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 	@Override
 	public BigDecimal calculateTotalExpense(String username, LocalDate fromDate, LocalDate toDate) {
 		
-		return expenseRepository.calculateTotalIncome(username, fromDate, toDate);
+		return expenseRepository.calculateTotalExpense(username, fromDate, toDate);
 	}
 
 	@Override
@@ -77,5 +79,23 @@ public class ExpenseServiceImpl implements ExpenseService{
 	public BigDecimal calculateAverageExpense(String username, LocalDate fromDate, LocalDate toDate) {
 		
 		return expenseRepository.calculateAverageExpense(username, fromDate, toDate);
+	}
+
+	@Override
+	public BigDecimal calculateHighestExpense(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.calculateHighestExpense(username, fromDate, toDate);
+	}
+
+	@Override
+	public BigDecimal calculateLowestExpense(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.calculateLowestExpense(username, fromDate, toDate);
+	}
+
+	@Override
+	public List<ExpenseSourceSummary> calculateExxpenseBySource(String username, LocalDate fromDate, LocalDate toDate) {
+		
+		return expenseRepository.calculateExpenseSummary(username, fromDate, toDate);
 	}
 }
