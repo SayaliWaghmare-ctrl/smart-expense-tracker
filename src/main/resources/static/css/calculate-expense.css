@@ -219,6 +219,7 @@ background: #f1f1f1;
     align-items: center;
     gap: 15px;
     margin-bottom: 28px;
+    border-bottom: 1px solid #eee;
 }
 
 .section-icon {
@@ -370,10 +371,25 @@ background: #f1f1f1;
 }
 
 .category-item {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 12px 20px;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.source-name {
+	
+display: flex;
+align-items: center;
+gap: 12px;
+font-size: 14px;
+}
+
+.category-item strong {
+	
+font-size: 15px;
+color: #333;
 }
 
 .category-details {

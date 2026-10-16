@@ -205,13 +205,11 @@
         <div class="category-list"
              th:if="${sourceSummaries != null and !sourceSummaries.isEmpty()}">
 
-            <div class="category-item"
-                 th:each="category : ${sourceSummaries}">
-
+            <div th:each="category : ${sourceSummaries}"  class="category-item">
                    <div class="source-name">
-                    <div class="source-small-icon">
+                      <div class="source-small-icon">
                         <i class="fa-solid fa-chart-line"></i>
-                    </div>
+                      </div>
                     <span th:text="${category.source}">                    
                     </span>
                 </div>
