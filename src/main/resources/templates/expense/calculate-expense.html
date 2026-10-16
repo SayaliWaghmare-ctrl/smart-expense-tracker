@@ -308,6 +308,15 @@
             fromDate.value = "";
         }
     });
+    
+    // Prevent future dates
+    const dateInput1 = document.getElementById("fromDate");
+    const dateInput2 = document.getElementById("toDate");
+    const today = new Date().toISOString().split("T")[0];
+
+    dateInput1.max = today;
+    dateInput2.max = today;
+    
 </script>
 
 </body>
