@@ -29,6 +29,19 @@
         </div>
     </header>
 
+
+                <!-- Messages -->
+                <div class="success-message"
+                     th:if="${successMessage}"
+                     th:text="${successMessage}">
+                </div>
+
+                <div class="error-message"
+                     th:if="${errorMessage}"
+                     th:text="${errorMessage}">
+                </div>
+                
+                
     <!-- Main Content -->
     <main class="budget-container">
 
@@ -95,7 +108,7 @@
                 </div>
             </div>
 
-            <form th:action="@{/budget/save}"
+            <form th:action="@{/budget/save-budget}"
                   th:object="${budget}"
                   method="post">
 
@@ -210,17 +223,6 @@
                         <h3 id="budgetPreview">₹0.00</h3>
                         <small>This is your spending limit for the selected category.</small>
                     </div>
-                </div>
-
-                <!-- Messages -->
-                <div class="success-message"
-                     th:if="${successMessage}"
-                     th:text="${successMessage}">
-                </div>
-
-                <div class="error-message"
-                     th:if="${errorMessage}"
-                     th:text="${errorMessage}">
                 </div>
 
                 <!-- Actions -->

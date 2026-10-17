@@ -1,7 +1,10 @@
 package com.sayali.smart_expense_tracker.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,7 +57,7 @@ public class Budget {
     private Integer year;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     // Constructors
     public Budget() {
@@ -110,12 +113,16 @@ public class Budget {
         this.year = year;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	
+
+   
 }
 
