@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Budget | Smart Expense Tracker</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/create-budget.css}">
+</head>
+
+<body>
+
+<div class="budget-page">
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="header-icon">
+            <i class="fa-solid fa-wallet"></i>
+        </div>
+
+        <div class="header-text">
+            <h1>Create Budget</h1>
+            <p>Plan your spending and stay in control of your money.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="budget-container">
+
+        <!-- Left Information Panel -->
+       <!--  <section class="budget-info">
+            <div class="info-content">
+                <span class="eyebrow">SMART FINANCIAL PLANNING</span>
+
+                <h2>Give every rupee a purpose.</h2>
+
+                <p>
+                    Set a spending limit for each category and keep
+                    track of your monthly expenses.
+                </p>
+
+                <div class="feature-item">
+                    <span class="feature-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </span>
+                    <div>
+                        <h3>Category-wise tracking</h3>
+                        <p>Manage Food, Travel, Shopping and more.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </span>
+                    <div>
+                        <h3>Stay within your limits</h3>
+                        <p>Know how much you can safely spend.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">
+                        <i class="fa-solid fa-bell"></i>
+                    </span>
+                    <div>
+                        <h3>Smart spending alerts</h3>
+                        <p>Get notified when your budget is running low.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-footer">
+                <i class="fa-solid fa-lightbulb"></i>
+                Small savings today can make a big difference tomorrow.
+            </div>
+        </section> -->
+
+        <!-- Create Budget Form -->
+        <section class="budget-form-section">
+
+            <div class="form-heading">
+                <span class="form-badge">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+
+                <div>
+                    <h2>Budget Details</h2>
+                    <p>Fill in the details below to create your budget.</p>
+                </div>
+            </div>
+
+            <form th:action="@{/budget/save}"
+                  th:object="${budget}"
+                  method="post">
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">
+                        Expense Category <span>*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-layer-group input-icon"></i>
+
+                        <select id="category"
+                                th:field="*{category.id}"
+                                required>
+                            <option value="">Select a category</option>
+
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}">
+                            </option>
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    </div>
+
+                    <small>Choose the expense category for this budget.</small>
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group">
+                    <label for="amount">
+                        Budget Amount <span>*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+
+                        <input type="number"
+                               id="amount"
+                               th:field="*{amount}"
+                               placeholder="e.g. 10000"
+                               min="0.01"
+                               step="0.01"
+                               required>
+                    </div>
+
+                    <small>Enter the maximum amount you plan to spend.</small>
+                </div>
+
+                <!-- Month and Year -->
+                <div class="date-row">
+
+                    <div class="form-group">
+                        <label for="month">
+                            Budget Month <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-calendar input-icon"></i>
+
+                            <select id="month"
+                                    th:field="*{month}"
+                                    required>
+                                <option value="">Select month</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">
+                            Budget Year <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-calendar-days input-icon"></i>
+
+                            <input type="number"
+                                   id="year"
+                                   th:field="*{year}"
+                                   min="2000"
+                                   max="2100"
+                                   placeholder="e.g. 2026"
+                                   required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Budget Summary Preview -->
+                <div class="preview-box">
+                    <div class="preview-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
+                    <div>
+                        <p>Your planned budget</p>
+                        <h3 id="budgetPreview">₹0.00</h3>
+                        <small>This is your spending limit for the selected category.</small>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="success-message"
+                     th:if="${successMessage}"
+                     th:text="${successMessage}">
+                </div>
+
+                <div class="error-message"
+                     th:if="${errorMessage}"
+                     th:text="${errorMessage}">
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <a th:href="@{/home}" class="cancel-btn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        Create Budget
+                    </button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+</div>
+
+<script>
+    const amountInput = document.getElementById("amount");
+    const preview = document.getElementById("budgetPreview");
+
+    amountInput.addEventListener("input", function () {
+        const amount = Number(this.value);
+
+        preview.textContent = "₹" +
+            (Number.isFinite(amount) && amount > 0
+                ? amount.toLocaleString("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                : "0.00");
+    });
+</script>
+
+</body>
+</html>
