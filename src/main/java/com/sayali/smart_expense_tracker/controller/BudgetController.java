@@ -1,5 +1,7 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.Budget;
+import com.sayali.smart_expense_tracker.repository.BudgetRepository;
 import com.sayali.smart_expense_tracker.service.BudgetService;
 import com.sayali.smart_expense_tracker.service.CategoryService;
 
@@ -23,6 +26,9 @@ public class BudgetController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	BudgetRepository budgetRepository;
+	
 	@GetMapping("/create-budget")
 	public String addBudget(Model model, Authentication authentication)
 	{
@@ -34,7 +40,7 @@ public class BudgetController {
 	}
 	
 	@PostMapping("/save-budget")
-	public String saveBudget(@ModelAttribute("budget") Budget budget, Authentication authentication, RedirectAttributes redirectAttributes)
+	public String saveBudget(@ModelAttribute("budget") Budget budget,Authentication authentication,RedirectAttributes redirectAttributes)
 	{
 		try {
 		  String username = authentication.getName();
@@ -44,8 +50,16 @@ public class BudgetController {
 		}catch(Exception e) {
 			
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-		}
-		
+		}		
 		return "redirect:/budget/create-budget";
+	}
+	
+	@GetMapping("/budget-list")
+	public String budgetList(Model model,Authentication authentication)
+	{
+		String username = authentication.getName();
+		List<Budget> budgetList = budgetRepository.findByUserUsername(username);
+		model.addAttribute("budgetList", budgetList);
+		return "budget/budget-list";	
 	}
 }

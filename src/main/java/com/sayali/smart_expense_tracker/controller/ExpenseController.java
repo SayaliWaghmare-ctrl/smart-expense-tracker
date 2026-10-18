@@ -67,7 +67,7 @@ public class ExpenseController {
 	}
 	
 	@GetMapping("/expense-list")
-	public String viewExpense(Model model, Authentication authentication, RedirectAttributes redirectAttributes)
+	public String viewExpense(Model model, Authentication authentication)
 	{
 		String username = authentication.getName();
 		List<Expense> expenseList = expenseRepository.findByUserUsername(username);
