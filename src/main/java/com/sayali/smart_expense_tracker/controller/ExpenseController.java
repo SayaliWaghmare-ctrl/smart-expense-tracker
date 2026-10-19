@@ -89,7 +89,7 @@ public class ExpenseController {
 	}
 	
 	@GetMapping("/edit/{id}")
-	public String updateExpenseForm(@PathVariable Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes)
+	public String updateExpenseForm(@PathVariable Long id, Model model, Authentication authentication)
 	{
 		String username = authentication.getName();
 		Expense expense = expenseService.getExpenseByID(id);
@@ -109,7 +109,7 @@ public class ExpenseController {
 		   redirectAttributes.addFlashAttribute("successMessage", "Expenses updated successfully !");
 	      
 	   }catch(Exception e) {
-		redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+		   redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 	  }
 		
 		return "redirect:/expense/expense-list";		

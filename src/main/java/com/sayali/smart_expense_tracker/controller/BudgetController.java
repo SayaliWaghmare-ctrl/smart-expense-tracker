@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.Budget;
+import com.sayali.smart_expense_tracker.entity.Categories;
+import com.sayali.smart_expense_tracker.entity.CategoryType;
 import com.sayali.smart_expense_tracker.repository.BudgetRepository;
+import com.sayali.smart_expense_tracker.repository.CategoryRepository;
 import com.sayali.smart_expense_tracker.service.BudgetService;
 import com.sayali.smart_expense_tracker.service.CategoryService;
 
@@ -26,6 +29,9 @@ public class BudgetController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	@Autowired
 	BudgetRepository budgetRepository;
@@ -74,6 +80,32 @@ public class BudgetController {
 		}catch(Exception e) {
 			
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+		}
+		return "redirect:/budget/budget-list";		
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String editBudgetForm(@PathVariable Long id, Model model, Authentication authentication)
+	{
+		String username = authentication.getName();
+		Budget budget = budgetService.getBudgetById(id);
+        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.EXPENSE);	
+        model.addAttribute("categories", categories);
+		model.addAttribute("budget", budget);
+		
+		return "budget/edit-budget";	
+	}
+	
+	@PostMapping("/update-budget")
+	public String editBudget(@ModelAttribute("budget") Budget budget, RedirectAttributes redirectAttributes)
+	{
+		try {
+		   budgetService.updateBudget(budget.getId(), budget);
+		   redirectAttributes.addFlashAttribute("successMessage", "Budget updated successfully !");
+		
+		}catch(Exception e) {
+			
+			   redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
 		return "redirect:/budget/budget-list";		
 	}

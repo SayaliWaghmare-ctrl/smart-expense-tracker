@@ -44,6 +44,25 @@ public class BudgetServiceImpl implements BudgetService{
 		budgetRepository.deleteById(id);
 	}
 
+	@Override
+	public Budget updateBudget(Long id, Budget budget) {
+		
+		Budget existBudget = budgetRepository.findById(id).orElseThrow(()-> new RuntimeException("Budget not found with id "+id));
+		
+		existBudget.setAmount(budget.getAmount());
+		existBudget.setMonth(budget.getMonth());
+		existBudget.setYear(budget.getYear());
+		existBudget.setCategory(budget.getCategory());
+		
+		return budgetRepository.save(existBudget);
+	}
+
+	@Override
+	public Budget getBudgetById(Long id) {
+		
+		return budgetRepository.findById(id).orElseThrow(() -> new RuntimeException("Budget not found with id "+id));
+	}
+
 	
 	
 }

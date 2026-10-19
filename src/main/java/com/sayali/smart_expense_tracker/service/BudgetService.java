@@ -7,4 +7,9 @@ public interface BudgetService {
 	public Budget createBudget(Budget budget, String username);
 	
 	public void deleteBudget(Long id);
+	
+	public Budget updateBudget(Long id, Budget budget);
+	
+	public Budget getBudgetById(Long id);
+	
 }
