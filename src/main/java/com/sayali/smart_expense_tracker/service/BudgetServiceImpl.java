@@ -33,7 +33,17 @@ public class BudgetServiceImpl implements BudgetService{
 		return budgetRepository.save(budget);
 	}
 
-	
+	@Override
+	public void deleteBudget(Long id) {
+		
+		if(!budgetRepository.existsById(id))
+		{
+			throw new RuntimeException("Budget not found with Id "+id);
+		}
+		
+		budgetRepository.deleteById(id);
+	}
 
+	
 	
 }

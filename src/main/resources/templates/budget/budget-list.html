@@ -20,12 +20,12 @@
                 Budget
             </h1>
 
-            <p>Manage your expense and income categories</p>
+            <p>Tracking your budgets and spending limits</p>
         </div>
 
         <a th:href="@{/budget/create-budget}" class="add-category-btn">
             <i class="fa-solid fa-plus"></i>
-            Add Budget
+            Create Budget
         </a>
 
     </div>
@@ -64,8 +64,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Source</th>
-                 <th>Amount</th>
+                <th>Amount</th>
+                 <th>Source</th>
                 <th>Month</th>
                 <th>Year</th>
                 <th>Actions</th>
@@ -80,18 +80,19 @@
                     1
                 </td>
 
-                <td class="source"
-                    th:text="${budget.category}">                  
-                </td>
-                
-                <td class="income-amount">
+                 <td class="income-amount">
                     <div class="category-icon">
                         <i class="fa-solid fa-tag"></i>
                     </div>
                     <span th:text="${budget.amount}">                       
                     </span>
                 </td>
-
+                
+                <td class="source"
+                    th:text="${budget.category.name}">                  
+                </td>
+                
+               
                  <td class="income-date"                  
                     th:text="${budget.month}">                                                               
                  </td>

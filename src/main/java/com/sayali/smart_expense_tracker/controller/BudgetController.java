@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -61,5 +62,19 @@ public class BudgetController {
 		List<Budget> budgetList = budgetRepository.findByUserUsername(username);
 		model.addAttribute("budgetList", budgetList);
 		return "budget/budget-list";	
+	}
+	
+	@PostMapping("/delete/{id}")
+	public String deleteBudget(@PathVariable Long id, RedirectAttributes redirectAttributes)
+	{
+		try {   
+		   budgetService.deleteBudget(id);
+		   redirectAttributes.addFlashAttribute("successMessage", "Budget deleted successfully !");
+		   
+		}catch(Exception e) {
+			
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+		}
+		return "redirect:/budget/budget-list";		
 	}
 }
