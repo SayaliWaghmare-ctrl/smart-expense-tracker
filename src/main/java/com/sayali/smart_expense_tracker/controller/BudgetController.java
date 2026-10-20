@@ -1,5 +1,6 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sayali.smart_expense_tracker.entity.Budget;
 import com.sayali.smart_expense_tracker.entity.Categories;
@@ -108,5 +110,32 @@ public class BudgetController {
 			   redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
 		return "redirect:/budget/budget-list";		
+	}
+	
+	@GetMapping("/getBudgetOverview")
+	public String budgetOverview( @RequestParam(required = false) Integer month,@RequestParam(required = false) Integer year,
+	                              Model model,Authentication authentication)
+	{
+		 // Set default month and year
+	    LocalDate today = LocalDate.now();
+
+	    if (month == null) {
+	        month = today.getMonthValue();
+	    }
+
+	    if (year == null) {
+	        year = today.getYear();
+	    }
+
+	    String username = authentication.getName();
+
+	    // Add your actual service methods here
+	    model.addAttribute("selectedMonth", month);
+	    model.addAttribute("selectedYear", year);
+
+	    // IMPORTANT: Always provide a list, even if it is empty
+	    model.addAttribute("categoryBudgets",budgetService.getCategoryBudgets(username, month, year));
+
+		return "budget/budget-overview";	
 	}
 }

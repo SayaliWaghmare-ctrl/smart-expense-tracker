@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Budget Overview | Smart Expense Tracker</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/budget-overview.css}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="header-title">
+            <div class="title-icon">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <div>
+                <h1>Budget Overview</h1>
+                <p>Plan your spending. Stay in control of your money.</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <a th:href="@{/budget/budget-list}" class="btn btn-light">
+                <i class="fa-solid fa-list"></i> View Budgets
+            </a>
+            <a th:href="@{/budget/create-budget}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Create Budget
+            </a>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="alert success-alert"
+         th:if="${successMessage}"
+         th:text="${successMessage}">
+    </div>
+
+    <div class="alert error-alert"
+         th:if="${errorMessage}"
+         th:text="${errorMessage}">
+    </div>
+
+    <!-- Month and Year Filter -->
+    <section class="filter-panel">
+        <div class="filter-heading">
+            <i class="fa-regular fa-calendar-days"></i>
+            <div>
+                <h3>Track a specific month</h3>
+                <p>Select a month to view your budget performance.</p>
+            </div>
+        </div>
+
+        <form th:action="@{/budget/budget-overview}" method="get"
+              class="filter-form">
+
+            <div class="filter-field">
+                <label for="month">Month</label>
+                <select id="month" name="month">
+                    <option value="1" th:selected="${selectedMonth == 1}">January</option>
+                    <option value="2" th:selected="${selectedMonth == 2}">February</option>
+                    <option value="3" th:selected="${selectedMonth == 3}">March</option>
+                    <option value="4" th:selected="${selectedMonth == 4}">April</option>
+                    <option value="5" th:selected="${selectedMonth == 5}">May</option>
+                    <option value="6" th:selected="${selectedMonth == 6}">June</option>
+                    <option value="7" th:selected="${selectedMonth == 7}">July</option>
+                    <option value="8" th:selected="${selectedMonth == 8}">August</option>
+                    <option value="9" th:selected="${selectedMonth == 9}">September</option>
+                    <option value="10" th:selected="${selectedMonth == 10}">October</option>
+                    <option value="11" th:selected="${selectedMonth == 11}">November</option>
+                    <option value="12" th:selected="${selectedMonth == 12}">December</option>
+                </select>
+            </div>
+
+            <div class="filter-field">
+                <label for="year">Year</label>
+                <select id="year" name="year">
+                    <option th:each="y : ${availableYears}"
+                            th:value="${y}"
+                            th:text="${y}"
+                            th:selected="${y == selectedYear}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary filter-btn">
+                <i class="fa-solid fa-filter"></i> Apply Filter
+            </button>
+        </form>
+    </section>
+
+    <!-- Summary Cards -->
+    <section class="summary-grid">
+
+        <article class="summary-card budget-card">
+            <div class="summary-top">
+                <div class="summary-icon purple">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <span class="summary-label">Total Budget</span>
+            </div>
+
+            <h2>
+                ₹<span th:text="${totalBudget}">23000</span>
+            </h2>
+            <p>Your planned spending limit</p>
+        </article>
+
+        <article class="summary-card spent-card">
+            <div class="summary-top">
+                <div class="summary-icon orange">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                </div>
+                <span class="summary-label">Total Spent</span>
+            </div>
+
+            <h2>
+                ₹<span th:text="${totalSpent}">15500</span>
+            </h2>
+            <p>Expenses recorded this month</p>
+        </article>
+
+        <article class="summary-card remaining-card">
+            <div class="summary-top">
+                <div class="summary-icon green">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                </div>
+                <span class="summary-label">Remaining Budget</span>
+            </div>
+
+            <h2 th:classappend="${remainingBudget < 0} ? ' negative-amount' : ''">
+                ₹<span th:text="${remainingBudget}">7500</span>
+            </h2>
+            <p th:if="${remainingBudget >= 0}">Available to spend within your budgets</p>
+            <p th:if="${remainingBudget < 0}" class="danger-text">
+                You have exceeded your total budget.
+            </p>
+        </article>
+
+        <article class="summary-card usage-card">
+            <div class="summary-top">
+                <div class="summary-icon blue">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <span class="summary-label">Budget Used</span>
+            </div>
+
+            <h2>
+                <span th:text="${usagePercentage}">67.4</span>%
+            </h2>
+
+            <div class="mini-progress">
+                <div class="mini-progress-fill"
+                     th:style="'width:' + ${usagePercentage > 100 ? 100 : (usagePercentage < 0 ? 0 : usagePercentage)} + '%'">
+                </div>
+            </div>
+            <p>Overall spending progress</p>
+        </article>
+
+    </section>
+
+    <!-- Budget Insight -->
+    <section class="insight-banner">
+        <div class="insight-icon">
+            <i class="fa-solid fa-lightbulb"></i>
+        </div>
+
+        <div class="insight-content">
+            <h3>Your Budget Insight</h3>
+            <p th:if="${totalBudget == 0}">
+                You haven't created a budget for this month yet.
+                Create one to start tracking your spending.
+            </p>
+            <p th:if="${totalBudget > 0 and usagePercentage < 80}">
+                You're on track! Keep monitoring your expenses
+                to stay within your planned budgets.
+            </p>
+            <p th:if="${totalBudget > 0 and usagePercentage >= 80 and usagePercentage < 100}">
+                You're getting close to your overall budget limit.
+                Review your remaining category budgets before spending more.
+            </p>
+            <p th:if="${totalBudget > 0 and usagePercentage >= 100}">
+                Your spending has reached or exceeded your overall budget.
+                Review your expenses and adjust your plans if needed.
+            </p>
+        </div>
+    </section>
+
+    <!-- Category-wise Budget Breakdown -->
+    <section class="category-section">
+
+        <div class="section-header">
+            <div>
+                <h2><i class="fa-solid fa-layer-group"></i> Category Breakdown</h2>
+                <p>See how much you've spent in each budget category.</p>
+            </div>
+
+            <span class="category-count"
+                  th:text="${#lists.size(categoryBudgets)} + ' categories'">
+                3 categories
+            </span>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" th:if="${#lists.isEmpty(categoryBudgets)}">
+            <div class="empty-icon">
+                <i class="fa-solid fa-chart-column"></i>
+            </div>
+            <h3>No budgets for this month</h3>
+            <p>Create a category budget to start monitoring your expenses.</p>
+            <a th:href="@{/budget/create-budget}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Create Your First Budget
+            </a>
+        </div>
+
+        <!-- Category Cards -->
+        <div class="category-grid" th:unless="${#lists.isEmpty(categoryBudgets)}">
+
+            <article class="category-card"
+                     th:each="item : ${categoryBudgets}">
+
+                <div class="category-card-header">
+                    <div class="category-name">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div>
+                            <h3 th:text="${item.categoryName}">Food</h3>
+                            <span>Monthly budget</span>
+                        </div>
+                    </div>
+
+                    <span class="status-badge"
+                          th:classappend="${item.usagePercentage >= 100} ? ' status-danger' : (${item.usagePercentage >= 80} ? ' status-warning' : ' status-safe')"
+                          th:text="${item.usagePercentage >= 100} ? 'Exceeded' : (${item.usagePercentage >= 80} ? 'Almost Used' : 'On Track')">
+                        On Track
+                    </span>
+                </div>
+
+                <div class="category-amounts">
+                    <div>
+                        <span class="muted-label">Spent</span>
+                        <strong>
+                            ₹<span th:text="${item.spentAmount}">8500</span>
+                        </strong>
+                    </div>
+
+                    <div class="amount-right">
+                        <span class="muted-label">Budget</span>
+                        <strong>
+                            ₹<span th:text="${item.budgetAmount}">10000</span>
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill"
+                         th:classappend="${item.usagePercentage >= 100} ? ' progress-danger' : (${item.usagePercentage >= 80} ? ' progress-warning' : ' progress-safe')"
+                         th:style="'width:' + ${item.usagePercentage > 100 ? 100 : (item.usagePercentage < 0 ? 0 : item.usagePercentage)} + '%'">
+                    </div>
+                </div>
+
+                <div class="progress-labels">
+                    <span>
+                        <strong th:text="${item.usagePercentage}">85</strong>% used
+                    </span>
+
+                    <span th:if="${item.remainingAmount >= 0}" class="remaining-label">
+                        ₹<span th:text="${item.remainingAmount}">1500</span> left
+                    </span>
+
+                    <span th:if="${item.remainingAmount < 0}" class="danger-text">
+                        ₹<span th:text="${-item.remainingAmount}">1000</span> over budget
+                    </span>
+                </div>
+
+                <div class="category-warning"
+                     th:if="${item.usagePercentage >= 80}">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span th:if="${item.usagePercentage < 100}">
+                        You're approaching your budget limit.
+                    </span>
+                    <span th:if="${item.usagePercentage >= 100}">
+                        This category has exceeded its budget.
+                    </span>
+                </div>
+
+                <button type="button" class="details-toggle"
+                        th:attr="aria-expanded='false'"
+                        onclick="toggleDetails(this)">
+                    View details
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="category-details" hidden>
+                    <div class="detail-row">
+                        <span>Planned amount</span>
+                        <strong>₹<span th:text="${item.budgetAmount}">10000</span></strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Total expenses</span>
+                        <strong>₹<span th:text="${item.spentAmount}">8500</span></strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Remaining amount</span>
+                        <strong>₹<span th:text="${item.remainingAmount}">1500</span></strong>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Footer Note -->
+    <footer class="dashboard-footer">
+        <i class="fa-solid fa-shield-halved"></i>
+        Your budget overview is based on your recorded expenses for the selected month.
+    </footer>
+
+</div>
+
+<script>
+    function toggleDetails(button) {
+        const details = button.nextElementSibling;
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+        button.setAttribute("aria-expanded", String(!isExpanded));
+        details.hidden = isExpanded;
+
+        button.innerHTML = isExpanded
+            ? 'View details <i class="fa-solid fa-chevron-down"></i>'
+            : 'Hide details <i class="fa-solid fa-chevron-up"></i>';
+    }
+</script>
+
+</body>
+</html>

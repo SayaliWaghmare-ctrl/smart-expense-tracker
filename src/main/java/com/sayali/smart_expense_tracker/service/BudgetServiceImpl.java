@@ -1,6 +1,7 @@
 package com.sayali.smart_expense_tracker.service;
 
 import java.time.LocalDate;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sayali.smart_expense_tracker.entity.Budget;
@@ -61,6 +62,12 @@ public class BudgetServiceImpl implements BudgetService{
 	public Budget getBudgetById(Long id) {
 		
 		return budgetRepository.findById(id).orElseThrow(() -> new RuntimeException("Budget not found with id "+id));
+	}
+
+	@Override
+	public @Nullable Object getCategoryBudgets(String username, Integer month, Integer year) {
+		// TODO Auto-generated method stub
+		return "";
 	}
 
 	
