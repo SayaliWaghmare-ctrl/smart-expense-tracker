@@ -1,5 +1,7 @@
 package com.sayali.smart_expense_tracker.service;
 
+import java.util.List;
+
 import org.jspecify.annotations.Nullable;
 
 import com.sayali.smart_expense_tracker.entity.Budget;
@@ -15,5 +17,7 @@ public interface BudgetService {
 	public Budget getBudgetById(Long id);
 
 	public @Nullable Object getCategoryBudgets(String username, Integer month, Integer year);
+	
+	public List<Budget> getBudgetsForOverview(String username, int month, int year, Long categoryId);
 	
 }

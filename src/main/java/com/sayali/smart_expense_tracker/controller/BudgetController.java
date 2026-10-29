@@ -1,7 +1,10 @@
 package com.sayali.smart_expense_tracker.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -112,27 +115,55 @@ public class BudgetController {
 		return "redirect:/budget/budget-list";		
 	}
 	
-	@GetMapping("/getBudgetOverview")
+	@GetMapping("/budget-overview")
 	public String budgetOverview( @RequestParam(required = false) Integer month,@RequestParam(required = false) Integer year,
-	                              Model model,Authentication authentication)
+	                              Model model,@RequestParam(required = false)Long categoryId,Authentication authentication)
 	{
 		 // Set default month and year
 	    LocalDate today = LocalDate.now();
-
+	    int currentYear = LocalDate.now().getYear();
+	    
 	    if (month == null) {
 	        month = today.getMonthValue();
 	    }
 
 	    if (year == null) {
-	        year = today.getYear();
+	        year = currentYear;
 	    }
 
+	    // Generate years for dropdown
+	    List<Integer> availableYears = IntStream
+	            .rangeClosed(currentYear - 2, currentYear + 2)
+	            .boxed()
+	            .sorted(Comparator.reverseOrder())
+	            .toList();
+	    
+	    BigDecimal budgetAmount= BigDecimal.TEN;
+	    BigDecimal spentAmount= BigDecimal.TWO;
+	    BigDecimal remainingAmount = budgetAmount.subtract(spentAmount);
+
+	    BigDecimal usagePercentage = BigDecimal.ZERO;
+	    
 	    String username = authentication.getName();
 
-	    // Add your actual service methods here
-	    model.addAttribute("selectedMonth", month);
-	    model.addAttribute("selectedYear", year);
+	    List<Budget> categoryBudgets = budgetService.getBudgetsForOverview(authentication.getName(), month, year, categoryId);
+	    
+	    // Category List
+        List<Categories> categories  = categoryRepository.findByUserUsernameAndType(username, CategoryType.EXPENSE);
 
+	    
+	    // Add your actual service methods here
+        model.addAttribute("categories", categories);
+        model.addAttribute("categoryBudgets", categoryBudgets);
+        model.addAttribute("availableYears", availableYears);
+        model.addAttribute("selectedMonth", month);
+        model.addAttribute("selectedYear", year);
+        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("budgetAmount", budgetAmount);
+        model.addAttribute("spentAmount", spentAmount);
+        model.addAttribute("remainingAmount", remainingAmount);
+        model.addAttribute("usagePercentage", usagePercentage);
+	    
 	    // IMPORTANT: Always provide a list, even if it is empty
 	    model.addAttribute("categoryBudgets",budgetService.getCategoryBudgets(username, month, year));
 

@@ -1,6 +1,8 @@
 package com.sayali.smart_expense_tracker.service;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,12 @@ public class BudgetServiceImpl implements BudgetService{
 	public @Nullable Object getCategoryBudgets(String username, Integer month, Integer year) {
 		// TODO Auto-generated method stub
 		return "";
+	}
+
+	@Override
+	public List<Budget> getBudgetsForOverview(String username, int month, int year, Long categoryId) {
+		
+		return budgetRepository.findBudgetsForOverview(username, month, year, categoryId);
 	}
 
 	

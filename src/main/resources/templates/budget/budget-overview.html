@@ -63,6 +63,18 @@
         <form th:action="@{/budget/budget-overview}" method="get"
               class="filter-form">
 
+           <div class="filter-field">
+             <label for="month">Category</label>
+               <select id="categories"
+                            th:field="*{categories}" >
+                        <option value="">Select expense category</option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+               </select>
+           </div>
+
             <div class="filter-field">
                 <label for="month">Month</label>
                 <select id="month" name="month">
@@ -234,7 +246,7 @@
                             <i class="fa-solid fa-receipt"></i>
                         </div>
                         <div>
-                            <h3 th:text="${item.categoryName}">Food</h3>
+                            <h3 th:text="${item.category.name}">Food</h3>
                             <span>Monthly budget</span>
                         </div>
                     </div>
@@ -250,7 +262,7 @@
                     <div>
                         <span class="muted-label">Spent</span>
                         <strong>
-                            ₹<span th:text="${item.spentAmount}">8500</span>
+                            ₹<span th:text="${item.amount}">8500</span>
                         </strong>
                     </div>
 
